@@ -7,14 +7,18 @@ import java.util.ArrayList;
 
 public class Tetromino {
 
-    Color color;
+    protected Color color;
+    protected int rotationIndex;
 
     private static ArrayList <Rectangle> addedMinoes = new ArrayList <Rectangle> ();
-    public static ArrayList <Rectangle> getAddedMinoes() {
+    public static final ArrayList <Rectangle> getAddedMinoes() {
         return addedMinoes;
     }
 
-    protected void ccw(){}
-    protected void cw(){}
-    protected void collision(){}
+    public void rotationCCW(){}
+    public void rotationCW(){}
+    public void rotation180(){}
+
+    public void collision(){}
+    public void update(){}
 }

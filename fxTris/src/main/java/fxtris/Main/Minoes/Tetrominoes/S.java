@@ -5,17 +5,24 @@ import fxtris.Main.Minoes.Tetromino;
 public class S extends Tetromino {
 
     @Override
-    public void ccw() {
+    public void rotationCCW() {
 
     }
-
     @Override
-    public void cw() {
+    public void rotationCW() {
+
+    }
+    @Override
+    public void rotation180() {
 
     }
 
     @Override
     public void collision() {
+
+    }
+    @Override
+    public void update() {
 
     }
 }
