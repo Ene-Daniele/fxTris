@@ -5,6 +5,8 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
+import static fxtris.Main.Others.GlobalValues.tile;
+
 public class Tetromino {
 
     protected Color color;
@@ -16,15 +18,10 @@ public class Tetromino {
     protected Rectangle minoCentral;
 
     protected Tetromino(Color color){
-        this.minoA = new Rectangle();
-        this.minoB = new Rectangle();
-        this.minoC = new Rectangle();
-        this.minoCentral = new Rectangle();
-
-        this.minoA.setFill(color);
-        this.minoB.setFill(color);
-        this.minoC.setFill(color);
-        this.minoCentral.setFill(color);
+        this.minoA = new Rectangle(tile, tile, color);
+        this.minoB = new Rectangle(tile, tile, color);
+        this.minoC = new Rectangle(tile, tile, color);
+        this.minoCentral = new Rectangle(tile, tile, color);
     }
 
     private static ArrayList <Rectangle> addedMinoes = new ArrayList <Rectangle> ();
