@@ -14,6 +14,7 @@ import java.util.Date;
 public class Main extends Application {
 
     static Group root = new Group();
+    static Group settings = new Group();
 
     @Override
     public void start(Stage stage) throws IOException {
