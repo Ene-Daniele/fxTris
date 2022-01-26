@@ -5,7 +5,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-public abstract class Tetromino {
+public class Tetromino {
 
     Color color;
 
@@ -13,4 +13,8 @@ public abstract class Tetromino {
     public static ArrayList <Rectangle> getAddedMinoes() {
         return addedMinoes;
     }
+
+    protected void ccw(){}
+    protected void cw(){}
+    protected void collision(){}
 }

@@ -24,7 +24,7 @@ public class Main extends Application {
             @Override
             public void handle(long l) {
 
-                
+                //Write game frames here
             }
         };
 

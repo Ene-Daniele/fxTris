@@ -21,7 +21,7 @@ class Bag {
         bag.add(new I());
     }
 
-    public ArrayList<Tetromino> getBag() {
+    public ArrayList <Tetromino> getBag() {
         return bag;
     }
 }
