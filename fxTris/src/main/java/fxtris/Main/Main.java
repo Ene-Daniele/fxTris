@@ -1,5 +1,6 @@
 package fxtris.Main;
 
+import fxtris.Main.Minoes.Tetromino;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +17,12 @@ public class Main extends Application {
     static Group root = new Group();
     static Group settings = new Group();
 
+    static Tetromino currentTetromino = new Tetromino();
+
     @Override
     public void start(Stage stage) throws IOException {
+
+
 
         AnimationTimer frames = new AnimationTimer() {
 
@@ -25,6 +30,7 @@ public class Main extends Application {
             public void handle(long l) {
 
                 //Write game frames here
+
             }
         };
 

@@ -10,19 +10,6 @@ public class T extends Tetromino {
     }
 
     @Override
-    public void rotationCCW() {
-
-    }
-    @Override
-    public void rotationCW() {
-
-    }
-    @Override
-    public void rotation180() {
-
-    }
-
-    @Override
     public void collision() {
 
     }

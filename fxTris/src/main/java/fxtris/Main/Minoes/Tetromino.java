@@ -17,7 +17,10 @@ public class Tetromino {
     protected Rectangle minoC;
     protected Rectangle minoCentral;
 
+    public Tetromino(){}
+
     protected Tetromino(Color color){
+        this.rotationIndex = 1;
         this.minoA = new Rectangle(tile, tile, color);
         this.minoB = new Rectangle(tile, tile, color);
         this.minoC = new Rectangle(tile, tile, color);
@@ -29,9 +32,30 @@ public class Tetromino {
         return addedMinoes;
     }
 
-    public void rotationCCW(){}
-    public void rotationCW(){}
-    public void rotation180(){}
+    public void rotationCCW(){
+        this.rotationIndex--;
+        if (this.rotationIndex < 1){
+            this.rotationIndex = 4;
+        }
+    }
+    public void rotationCW(){
+        this.rotationIndex++;
+        if (this.rotationIndex > 4){
+            this.rotationIndex = 1;
+        }
+    }
+    public void rotation180(){
+        switch (this.rotationIndex){
+            case 1:
+                this.rotationIndex = 3;
+            case 2:
+                this.rotationIndex = 4;
+            case 3:
+                this.rotationIndex = 1;
+            case 4:
+                this.rotationIndex = 2;
+        }
+    }
 
     public void collision(){}
     public void update(){}
