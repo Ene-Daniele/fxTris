@@ -29,7 +29,7 @@ public class Queue {
 
     public static void loadFirstQueue(){
 
-        for (Tetromino i : list){
+        for (int i = 0; i < 7; i++){
             int selectedMino = random.nextInt(0, bag.getBag().size());
             list.add(bag.getBag().get(selectedMino));
             bag.getBag().remove(selectedMino);
