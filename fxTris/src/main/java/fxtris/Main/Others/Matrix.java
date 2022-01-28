@@ -15,17 +15,18 @@ public class Matrix { //Take inactive pieces from this matrixGrid as rectangles 
         return matrixGrid;
     }
 
-    public Matrix(){
+    public static void loadMatrix(){
         for (int i = 0; i < 20; i++){
             matrixGrid.add(new ArrayList<>());
         }
     }
 
-    public void addMinoes(Rectangle mino){
+    public static void addMinoes(Rectangle mino){
 
         for (int i = 0; i < 20; i++){
             if (mino.getY() == (i + 5) * TILE){
                 matrixGrid.get(i).add(mino);
+                Main.root.getChildren().add(matrixGrid.get(i).get(matrixGrid.get(i).indexOf(mino)));
                 if (matrixGrid.get(i).size() == 10){
                     clearRow(i);
                 }
@@ -33,7 +34,7 @@ public class Matrix { //Take inactive pieces from this matrixGrid as rectangles 
         }
     }
 
-    private void clearRow(int row){
+    private static void clearRow(int row){
 
         for (int j = 0; j < 10; j++){ //Removing from root
             Main.root.getChildren().remove(matrixGrid.get(row).get(j));

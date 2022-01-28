@@ -58,10 +58,12 @@ public class Controller {
                 switch (event.getCode()) {
                     case RIGHT -> {
                         Keyboard.setRight(false);
+                        Main.resetXMovement();
 
                     }
                     case LEFT -> {
                         Keyboard.setLeft(false);
+                        Main.resetXMovement();
 
                     }
                     case DOWN -> {

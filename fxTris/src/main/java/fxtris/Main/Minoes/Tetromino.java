@@ -1,5 +1,6 @@
 package fxtris.Main.Minoes;
 
+import fxtris.Main.Main;
 import fxtris.Main.Others.Matrix;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -73,6 +74,11 @@ public class Tetromino {
         this.minoCentral = new Rectangle(TILE, TILE, color);
         minoCentral.setY(100);
         minoCentral.setX(100);
+
+        Main.root.getChildren().add(minoCentral);
+        Main.root.getChildren().add(minoC);
+        Main.root.getChildren().add(minoB);
+        Main.root.getChildren().add(minoA);
     }
 
     public void rotationCCW(){
@@ -100,6 +106,12 @@ public class Tetromino {
         }
     }
 
+    private boolean generalCollision(Rectangle mino, Rectangle deadMino){
+        return
+                mino.getY() + TILE == deadMino.getY()
+                && mino.getX() == deadMino.getX();
+    }
+
     public boolean isColliding(){
         boolean temp = false;
 
@@ -113,10 +125,10 @@ public class Tetromino {
                 for (Rectangle deadMino : i) {
                     if
                     (
-                            this.minoCentral.getY() + TILE == deadMino.getY()
-                            || this.minoA.getY() + TILE == deadMino.getY()
-                            || this.minoB.getY() + TILE == deadMino.getY()
-                            || this.minoC.getY() + TILE == deadMino.getY()
+                            generalCollision(minoCentral, deadMino)
+                            || generalCollision(minoA, deadMino)
+                            || generalCollision(minoB, deadMino)
+                            || generalCollision(minoC, deadMino)
                     )
                     {
                         temp = true;
@@ -137,8 +149,10 @@ public class Tetromino {
 
     public void update(){/* Override in subclasses */}
 
-    public final boolean canRotate(Tetromino tetromino){
+    public final boolean canRotate(Tetromino tetromino, int newIndex){
         boolean temp = false;
+        tetromino.rotationIndex = newIndex;
+        //TODO Check if you can rotate with the new index, do this After having done all rotation indexes
         return temp;
     }
 }

@@ -18,7 +18,7 @@ public class GlobalValues {
         GlobalValues.arr = arr;
     }
 
-    private static int sdf = 5; //Divide gravity by this when soft dropping;
+    private static int sdf = 10; //Divide gravity by this when soft dropping;
     public static int getSdf() {
         return sdf;
     }
@@ -26,10 +26,10 @@ public class GlobalValues {
         GlobalValues.sdf = sdf;
     }
 
-    public static final int GRAVITY = 240;
+    public static final int GRAVITY = 60;
     public static final int TILE = 25; //Size of the tiles in the grip
     public static final int LEFTWALL = 0;
-    public static final int RIGHTWALL = 11;
+    public static final int RIGHTWALL = 14;
     public static final int GROUND = 25;
     public static final int CEILING = 5;
 }
