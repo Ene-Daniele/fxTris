@@ -5,6 +5,7 @@ import fxtris.Main.Controls.Keyboard;
 import fxtris.Main.Minoes.Tetromino;
 import fxtris.Main.Minoes.Tetrominoes.S;
 import fxtris.Main.Others.Matrix;
+import fxtris.Main.Queue.Queue;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static fxtris.Main.Others.GlobalValues.*;
+import static fxtris.Main.Queue.Queue.*;
 
 public class Main extends Application {
 
@@ -45,6 +47,7 @@ public class Main extends Application {
 
         Controller.loadController();
         Matrix.loadMatrix();
+        Queue.loadFirstQueue();
 
         currentTetromino = new S();
 
@@ -63,7 +66,6 @@ public class Main extends Application {
                     currentTetromino.update();
                 } else {
                     currentTetromino.getMinoCentral().setFill(Color.GRAY);
-                    //TODO Cycle queue and get new tetromino
                     placeTetromino();
                 }
             }
@@ -80,7 +82,10 @@ public class Main extends Application {
                 Matrix.addMinoes(currentTetromino.getMinoB());
                 Matrix.addMinoes(currentTetromino.getMinoA());
 
-                currentTetromino = new S();
+                currentTetromino = Queue.getList().get(0);
+                Queue.cycleList();
+                //TODO Show queue
+
             }
             //TODO Horizontal collisions
             private static void collisions(){
