@@ -3,7 +3,7 @@ package fxtris.Main;
 import fxtris.Main.Controls.Controller;
 import fxtris.Main.Controls.Keyboard;
 import fxtris.Main.Minoes.Tetromino;
-import fxtris.Main.Minoes.Tetrominoes.S;
+import fxtris.Main.Minoes.Tetrominoes.*;
 import fxtris.Main.Others.Matrix;
 import fxtris.Main.Queue.Queue;
 import javafx.animation.AnimationTimer;

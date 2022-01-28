@@ -39,13 +39,15 @@ public class Matrix { //Take inactive pieces from this matrixGrid as rectangles 
         for (int j = 0; j < 10; j++){ //Removing from root
             Main.root.getChildren().remove(matrixGrid.get(row).get(j));
         }
-        matrixGrid.remove(row); //Deleting row
-        matrixGrid.add(new ArrayList<>()); //Adding new row
+        matrixGrid.remove(row);
+        matrixGrid.add(0, new ArrayList<>());
 
-        for (int i = 0; i < matrixGrid.size(); i++){
-            for (int j = 0; j < matrixGrid.get(i).size(); j++){
+        for (int i = row; i > 0; i--){
+            for (int j = 0; j < 10; j++){
 
-                matrixGrid.get(i).get(j).setY((i + 5) * TILE);
+                try {
+                    matrixGrid.get(i).get(j).setY((i + 5) * TILE);
+                } catch (IndexOutOfBoundsException e){}
             }
         }
     }

@@ -29,7 +29,7 @@ public class GlobalValues {
     public static final int GRAVITY = 60;
     public static final int TILE = 25; //Size of the tiles in the grip
     public static final int LEFTWALL = 0;
-    public static final int RIGHTWALL = 14;
+    public static final int RIGHTWALL = 11;
     public static final int GROUND = 25;
     public static final int CEILING = 5;
 }
