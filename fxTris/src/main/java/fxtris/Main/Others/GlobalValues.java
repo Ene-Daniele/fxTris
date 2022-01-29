@@ -2,7 +2,7 @@ package fxtris.Main.Others;
 
 public class GlobalValues {
 
-    private static int das = 7; //Frames before the mino starts dasing
+    private static int das = 6; //Frames before the mino starts dasing
     public static int getDas() {
         return das;
     }
@@ -10,7 +10,7 @@ public class GlobalValues {
         GlobalValues.das = das;
     }
 
-    private static int arr = 3; //Frames in between the tetrominoes movements after the das
+    private static int arr = 1; //Frames in between the tetrominoes movements after the das
     public static int getArr() {
         return arr;
     }
@@ -18,7 +18,7 @@ public class GlobalValues {
         GlobalValues.arr = arr;
     }
 
-    private static int sdf = 10; //Divide gravity by this when soft dropping;
+    private static int sdf = 34; //Divide gravity by this when soft dropping;
     public static int getSdf() {
         return sdf;
     }

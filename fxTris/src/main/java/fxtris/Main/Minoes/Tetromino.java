@@ -27,6 +27,17 @@ public class Tetromino {
         this.active = active;
     }
 
+    public Tetromino(Tetromino other){
+        this.rotationIndex = other.rotationIndex;
+        this.minoCentral = new Rectangle(other.getMinoCentral().getX(), other.getMinoCentral().getY(), TILE, TILE);
+        this.minoA = new Rectangle(other.getMinoA().getX(), other.getMinoA().getY(), TILE, TILE);
+        this.minoB = new Rectangle(other.getMinoB().getX(), other.getMinoB().getY(), TILE, TILE);
+        this.minoC = new Rectangle(other.getMinoC().getX(), other.getMinoC().getY(), TILE, TILE);
+        this.getMinoCentral().setFill(Color.DARKSLATEGRAY);
+        this.getMinoA().setFill(Color.DARKSLATEGRAY);
+        this.getMinoB().setFill(Color.DARKSLATEGRAY);
+        this.getMinoC().setFill(Color.DARKSLATEGRAY);
+    }
 
     protected Rectangle minoA;
     protected Rectangle minoB;

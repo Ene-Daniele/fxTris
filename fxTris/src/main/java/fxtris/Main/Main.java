@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -29,6 +30,7 @@ public class Main extends Application {
     public static Scene scene = new Scene(root, 800, 800, Color.BLACK);
 
     public static Tetromino currentTetromino = new Tetromino();
+    public static Tetromino shadow = new Tetromino();
 
     private static int tempGRV = 0;
     private static int tempSDF = 0;
@@ -44,8 +46,25 @@ public class Main extends Application {
         singleTap = true;
     }
 
+    static void addLine(Line line){
+
+        line.setStroke(Color.WHITE);
+        line.setStrokeWidth(2);
+        root.getChildren().add(line);
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
+
+        Line left = new Line(TILE, TILE * 5, TILE, GROUND * TILE);
+        Line right = new Line(TILE * RIGHTWALL, TILE * 5, TILE * RIGHTWALL, TILE * GROUND);
+        Line down = new Line(TILE * RIGHTWALL, TILE * GROUND, TILE, GROUND * TILE);
+        Line top = new Line(TILE * RIGHTWALL, TILE * 5, TILE, TILE * 5);
+
+        addLine(left);
+        addLine(right);
+        addLine(down);
+        addLine(top);
 
         Controller.loadController();
         Matrix.loadMatrix();
@@ -60,13 +79,20 @@ public class Main extends Application {
 
                 if (currentTetromino.isActive()) {
 
+                    shadow();
                     gravity();
                     collisions();
                     borderCheck(); //? This goes into movement()
                     hardDrop();
 
+
                     currentTetromino.getMinoCentral().setFill(Color.RED);
                     currentTetromino.update();
+
+                    left.toFront();
+                    right.toFront();
+                    down.toFront();
+                    top.toFront();
                 } else {
                     currentTetromino.getMinoCentral().setFill(Color.GRAY);
                     placeTetromino();
@@ -86,6 +112,15 @@ public class Main extends Application {
                 Matrix.addMinoes(currentTetromino.getMinoA());
 
                 currentTetromino = Queue.getList().get(0);
+
+                //Removing old shadow
+                root.getChildren().remove(shadow.getMinoCentral());
+                root.getChildren().remove(shadow.getMinoA());
+                root.getChildren().remove(shadow.getMinoB());
+                root.getChildren().remove(shadow.getMinoC());
+
+                shadow = new Tetromino(currentTetromino);
+
                 Queue.cycleList();
                 currentTetromino.setActive(true);
                 //TODO Show queue
@@ -174,6 +209,44 @@ public class Main extends Application {
                 } else {
                     hardDropped = false;
                 }
+
+            }
+            private static void shadow(){
+
+                //Bringing the shadow to the new position
+                shadow.getMinoCentral().setY(currentTetromino.getMinoCentral().getY());
+                shadow.getMinoA().setY(currentTetromino.getMinoA().getY());
+                shadow.getMinoB().setY(currentTetromino.getMinoB().getY());
+                shadow.getMinoC().setY(currentTetromino.getMinoC().getY());
+                shadow.getMinoCentral().setX(currentTetromino.getMinoCentral().getX());
+                shadow.getMinoA().setX(currentTetromino.getMinoA().getX());
+                shadow.getMinoB().setX(currentTetromino.getMinoB().getX());
+                shadow.getMinoC().setX(currentTetromino.getMinoC().getX());
+
+                //Pushing the shadow down
+                while (!shadow.isColliding()) {
+                    shadow.getMinoCentral().setY(shadow.getMinoCentral().getY() + TILE);
+                    shadow.getMinoA().setY(shadow.getMinoA().getY() + TILE);
+                    shadow.getMinoB().setY(shadow.getMinoB().getY() + TILE);
+                    shadow.getMinoC().setY(shadow.getMinoC().getY() + TILE);
+                    shadow.update();
+                }
+                //Add the shadow
+                if (!root.getChildren().contains(shadow.getMinoCentral())){
+                    root.getChildren().add(shadow.getMinoCentral());
+                    root.getChildren().add(shadow.getMinoA());
+                    root.getChildren().add(shadow.getMinoB());
+                    root.getChildren().add(shadow.getMinoC());
+                }
+                //Dont overwrite the tetromino with the shadow
+                if (currentTetromino.getMinoCentral().getY() == shadow.getMinoCentral().getY()
+                    && currentTetromino.getMinoCentral().getX() == shadow.getMinoCentral().getX()){
+                    shadow.getMinoCentral().setFill(Color.TRANSPARENT);
+                    shadow.getMinoA().setFill(Color.TRANSPARENT);
+                    shadow.getMinoB().setFill(Color.TRANSPARENT);
+                    shadow.getMinoC().setFill(Color.TRANSPARENT);
+                }
+
             }
         };
 
