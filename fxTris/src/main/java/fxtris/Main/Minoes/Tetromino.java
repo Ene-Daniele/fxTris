@@ -67,13 +67,13 @@ public class Tetromino {
     protected Tetromino(Color color){
         this.rotationIndex = 1;
         this.collided = false;
-        this.active = true;
+        this.active = false;
         this.minoA = new Rectangle(TILE, TILE, color);
         this.minoB = new Rectangle(TILE, TILE, color);
         this.minoC = new Rectangle(TILE, TILE, color);
         this.minoCentral = new Rectangle(TILE, TILE, color);
         minoCentral.setY(100);
-        minoCentral.setX(100);
+        minoCentral.setX(TILE * 5);
 
         Main.root.getChildren().add(minoCentral);
         Main.root.getChildren().add(minoC);
@@ -134,6 +134,29 @@ public class Tetromino {
                         temp = true;
                         this.collided = true;
                     }
+                }
+            }
+        }
+        return temp;
+    }
+
+
+    public boolean isntCollisingHorizontally(int sign){
+        boolean temp = true;
+        for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
+            for (Rectangle deadMino : i) {
+                if (
+                    this.minoCentral.getX() + (TILE * sign) == deadMino.getX()
+                            && this.minoCentral.getY() == deadMino.getY()
+                    || this.minoA.getX() + (TILE * sign) == deadMino.getX()
+                            && this.minoA.getY() == deadMino.getY()
+                    || this.minoB.getX() + (TILE * sign) == deadMino.getX()
+                            && this.minoB.getY() == deadMino.getY()
+                    || this.minoC.getX() + (TILE * sign) == deadMino.getX()
+                            && this.minoC.getY() == deadMino.getY()
+                )
+                {
+                    temp = false;
                 }
             }
         }

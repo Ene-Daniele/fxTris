@@ -34,7 +34,9 @@ public class Main extends Application {
     private static int tempSDF = 0;
     private static int tempARR = 0;
     private static int tempDAS = 0;
+
     private static boolean singleTap = true;
+    public static boolean hardDropped = false;
 
     public static void resetXMovement(){
         tempARR = 0;
@@ -49,7 +51,7 @@ public class Main extends Application {
         Matrix.loadMatrix();
         Queue.loadFirstQueue();
 
-        currentTetromino = new S();
+        currentTetromino = new S(); //* Placeholder tetromino
 
         AnimationTimer frames = new AnimationTimer() {
 
@@ -61,6 +63,7 @@ public class Main extends Application {
                     gravity();
                     collisions();
                     borderCheck(); //? This goes into movement()
+                    hardDrop();
 
                     currentTetromino.getMinoCentral().setFill(Color.RED);
                     currentTetromino.update();
@@ -84,10 +87,10 @@ public class Main extends Application {
 
                 currentTetromino = Queue.getList().get(0);
                 Queue.cycleList();
+                currentTetromino.setActive(true);
                 //TODO Show queue
 
             }
-            //TODO Horizontal collisions
             private static void collisions(){
 
                 if (currentTetromino.isColliding()){
@@ -110,7 +113,7 @@ public class Main extends Application {
                         tempGRV = 0;
                         currentTetromino.getMinoCentral().setY(currentTetromino.getMinoCentral().getY() + TILE);
                     }
-                } else {
+                } else { //? Dont know if i should make a function for barely 2 lines
                     if (tempGRV > GRAVITY) {
                         tempGRV = 0;
                         currentTetromino.getMinoCentral().setY(currentTetromino.getMinoCentral().getY() + TILE);
@@ -123,14 +126,20 @@ public class Main extends Application {
                     && currentTetromino.getMinoA().getX() - TILE != LEFTWALL
                     && currentTetromino.getMinoB().getX() - TILE != LEFTWALL
                     && currentTetromino.getMinoC().getX() - TILE != LEFTWALL
+
+                    && currentTetromino.isntCollisingHorizontally(-1)
                 ) && Keyboard.isLeft()){
                     movement(-1); //* Negative
+
+                    //? It mutliplies TILE by the given parameter, so it checks left or right, -1 or 1
                 }
                 if ((
                     currentTetromino.getMinoCentral().getX() + TILE != RIGHTWALL * TILE
                     && currentTetromino.getMinoA().getX() + TILE != RIGHTWALL * TILE
                     && currentTetromino.getMinoB().getX() + TILE != RIGHTWALL * TILE
                     && currentTetromino.getMinoC().getX() + TILE != RIGHTWALL * TILE
+
+                    && currentTetromino.isntCollisingHorizontally(1)
                 ) && Keyboard.isRight()){
                     movement(1); //* Positive
                 }
@@ -152,17 +161,21 @@ public class Main extends Application {
                     }
                 }
             }
+            private static void hardDrop(){
+                if (Keyboard.isHardDrop()) {
+                    if (!hardDropped){
+                        hardDropped = true;
+                        while (!currentTetromino.isColliding()) {
+                            currentTetromino.getMinoCentral().setY(currentTetromino.getMinoCentral().getY() + TILE);
+                            currentTetromino.update();
+                        }
+                        currentTetromino.setActive(false);
+                    }
+                } else {
+                    hardDropped = false;
+                }
+            }
         };
-
-        /*Rectangle dsa = new Rectangle(50,50,Color.WHITE);
-        ArrayList<Rectangle> qwe = new ArrayList<>();
-        qwe.add(dsa);
-        root.getChildren().add(qwe.get(0));
-        Button asd = new Button();
-        asd.setOnAction(actionEvent -> {
-            qwe.get(0).setY(100);
-        });
-        root.getChildren().add(asd);*/
 
         stage.setTitle("fxTris");
         stage.setScene(scene);
