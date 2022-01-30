@@ -2,6 +2,8 @@ package fxtris.Main.Minoes;
 
 import fxtris.Main.Main;
 import fxtris.Main.Others.Matrix;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.Effect;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -83,8 +85,15 @@ public class Tetromino {
         this.minoB = new Rectangle(TILE, TILE, color);
         this.minoC = new Rectangle(TILE, TILE, color);
         this.minoCentral = new Rectangle(TILE, TILE, color);
+
+        //! Change this to show up in the queue instead
         minoCentral.setY(100);
         minoCentral.setX(TILE * 5);
+
+        this.minoA.setStroke(Color.BLACK);
+        this.minoB.setStroke(Color.BLACK);
+        this.minoC.setStroke(Color.BLACK);
+        this.minoCentral.setStroke(Color.BLACK);
     }
 
     public void rotationCCW(){

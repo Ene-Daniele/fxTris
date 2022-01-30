@@ -251,18 +251,10 @@ public class Main extends Application {
                     root.getChildren().add(shadow.getMinoC());
                 }
                 //Dont overwrite the tetromino with the shadow
-                if (currentTetromino.getMinoCentral().getY() == shadow.getMinoCentral().getY()
-                    && currentTetromino.getMinoCentral().getX() == shadow.getMinoCentral().getX()){
-                    shadow.getMinoCentral().setFill(Color.TRANSPARENT);
-                    shadow.getMinoA().setFill(Color.TRANSPARENT);
-                    shadow.getMinoB().setFill(Color.TRANSPARENT);
-                    shadow.getMinoC().setFill(Color.TRANSPARENT);
-                } else {
-                    shadow.getMinoCentral().setFill(Color.DARKSLATEGRAY);
-                    shadow.getMinoA().setFill(Color.DARKSLATEGRAY);
-                    shadow.getMinoB().setFill(Color.DARKSLATEGRAY);
-                    shadow.getMinoC().setFill(Color.DARKSLATEGRAY);
-                }
+                currentTetromino.getMinoCentral().toFront();
+                currentTetromino.getMinoA().toFront();
+                currentTetromino.getMinoB().toFront();
+                currentTetromino.getMinoC().toFront();
 
             }
         };
