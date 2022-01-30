@@ -196,7 +196,7 @@ public class Tetromino {
         return temp;
     }
     public void offset(int x, int y){
-        //* This is neede for SRS checks
+        //* This is needed for SRS checks
     }
 
     public void rotation(int sin){
