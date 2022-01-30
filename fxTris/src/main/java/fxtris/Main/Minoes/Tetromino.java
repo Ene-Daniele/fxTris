@@ -87,7 +87,7 @@ public class Tetromino {
         this.minoCentral = new Rectangle(TILE, TILE, color);
 
         //! Change this to show up in the queue instead
-        minoCentral.setY(100);
+        minoCentral.setY(TILE * 3);
         minoCentral.setX(TILE * 5);
 
         this.minoA.setStroke(Color.BLACK);
