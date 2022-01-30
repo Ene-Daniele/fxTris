@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import static fxtris.Main.Others.GlobalValues.TILE;
 
-public class Matrix { //Take inactive pieces from this matrixGrid as rectangles one by one
+public class Matrix {
 
     private static ArrayList <ArrayList<Rectangle>> matrixGrid = new ArrayList<>();
 

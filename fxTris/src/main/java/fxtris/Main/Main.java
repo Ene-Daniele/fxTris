@@ -245,6 +245,11 @@ public class Main extends Application {
                     shadow.getMinoA().setFill(Color.TRANSPARENT);
                     shadow.getMinoB().setFill(Color.TRANSPARENT);
                     shadow.getMinoC().setFill(Color.TRANSPARENT);
+                } else {
+                    shadow.getMinoCentral().setFill(Color.DARKSLATEGRAY);
+                    shadow.getMinoA().setFill(Color.DARKSLATEGRAY);
+                    shadow.getMinoB().setFill(Color.DARKSLATEGRAY);
+                    shadow.getMinoC().setFill(Color.DARKSLATEGRAY);
                 }
 
             }
