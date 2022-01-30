@@ -187,10 +187,23 @@ public class Tetromino {
 
     public void update(){/* Override in subclasses */}
 
-    public final boolean canRotate(Tetromino tetromino, int newIndex){
+    public final boolean canRotate(){
         boolean temp = false;
-        tetromino.rotationIndex = newIndex;
         //TODO Check if you can rotate with the new index, do this After having done all rotation indexes
         return temp;
+    }
+    public void offset(int x, int y){
+        //* This is neede for SRS checks
+    }
+
+    public void rotation(int sin){
+        /*
+        * Clone the tetromino to "notRotated"
+        * Rotate the tetromino {rotationIndex += sign; this.update();}
+        * Clone the tetromino to "rotated"
+        * Check1: if (!canRotate()){Clone "rotated" into the tetromino, offset1}
+        * Check2: if (!canRotate()){Clone "rotated" into the tetromino, offset2}
+        * LastCheck: if (!canRotate()){Clone "notRotated" into the tetromino}
+        */
     }
 }
