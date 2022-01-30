@@ -110,6 +110,10 @@ public class Main extends Application {
 
                 currentTetromino = Queue.getList().get(0);
                 currentTetromino.setActive(true);
+                root.getChildren().add(currentTetromino.getMinoCentral());
+                root.getChildren().add(currentTetromino.getMinoC());
+                root.getChildren().add(currentTetromino.getMinoB());
+                root.getChildren().add(currentTetromino.getMinoA());
 
                 //Removing old shadow
                 root.getChildren().remove(shadow.getMinoCentral());

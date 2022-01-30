@@ -85,11 +85,6 @@ public class Tetromino {
         this.minoCentral = new Rectangle(TILE, TILE, color);
         minoCentral.setY(100);
         minoCentral.setX(TILE * 5);
-
-        Main.root.getChildren().add(minoCentral);
-        Main.root.getChildren().add(minoC);
-        Main.root.getChildren().add(minoB);
-        Main.root.getChildren().add(minoA);
     }
 
     public void rotationCCW(){
