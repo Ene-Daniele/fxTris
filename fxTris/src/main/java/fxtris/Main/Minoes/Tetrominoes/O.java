@@ -3,6 +3,8 @@ package fxtris.Main.Minoes.Tetrominoes;
 import fxtris.Main.Minoes.Tetromino;
 import javafx.scene.paint.Color;
 
+import static fxtris.Main.Others.GlobalValues.TILE;
+
 public class O extends Tetromino {
 
     public O() {
@@ -12,15 +14,13 @@ public class O extends Tetromino {
     @Override
     public void update() {
 
-        switch (this.rotationIndex){
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-        }
+        minoA.setY(minoCentral.getY() + TILE);
+        minoA.setX(minoCentral.getX() + TILE);
+
+        minoB.setY(minoCentral.getY());
+        minoB.setX(minoCentral.getX() + TILE);
+
+        minoC.setY(minoCentral.getY() + TILE);
+        minoC.setX(minoCentral.getX());
     }
 }

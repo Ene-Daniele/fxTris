@@ -12,7 +12,7 @@ class Bag {
     public Bag(){
         this.bag = new ArrayList <Tetromino> ();
 
-        bag.add(new I());
+        bag.add(new Z());
         bag.add(new J());
         bag.add(new L());
         bag.add(new O());

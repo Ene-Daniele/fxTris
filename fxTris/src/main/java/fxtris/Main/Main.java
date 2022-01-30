@@ -85,8 +85,6 @@ public class Main extends Application {
                     borderCheck(); //? This goes into movement()
                     hardDrop();
 
-
-                    currentTetromino.getMinoCentral().setFill(Color.RED);
                     currentTetromino.update();
 
                     left.toFront();
@@ -94,7 +92,6 @@ public class Main extends Application {
                     down.toFront();
                     top.toFront();
                 } else {
-                    currentTetromino.getMinoCentral().setFill(Color.GRAY);
                     placeTetromino();
                 }
             }
@@ -112,6 +109,7 @@ public class Main extends Application {
                 Matrix.addMinoes(currentTetromino.getMinoA());
 
                 currentTetromino = Queue.getList().get(0);
+                currentTetromino.setActive(true);
 
                 //Removing old shadow
                 root.getChildren().remove(shadow.getMinoCentral());
@@ -122,7 +120,6 @@ public class Main extends Application {
                 shadow = new Tetromino(currentTetromino);
 
                 Queue.cycleList();
-                currentTetromino.setActive(true);
                 //TODO Show queue
 
             }
