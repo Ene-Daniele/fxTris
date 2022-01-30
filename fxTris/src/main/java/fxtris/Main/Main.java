@@ -70,14 +70,26 @@ public class Main extends Application {
         Matrix.loadMatrix();
         Queue.loadFirstQueue();
 
-        currentTetromino = new S(); //* Placeholder tetromino
+        //* Placeholder tetromino needed to start cycling through the queue, it will change as soon as handle() starts.
+        currentTetromino = new S();
 
-        AnimationTimer frames = new AnimationTimer() {
+        AnimationTimer frames = new AnimationTimer() { //AnimationTimer my beloved <3
 
             @Override
             public void handle(long l) {
 
                 if (currentTetromino.isActive()) {
+
+                    //TODO Show queue
+                    //TODO Finish rotation IDs
+                    //TODO Add rotations
+                    //TODO Add swap
+                    //TODO Add UI stuff (score, swapped piece, etc)
+                    //TODO Add settings
+                    //TODO Add reset method to reset if needed
+                    //TODO Add settings, and a serialized file to save them
+                    //TODO Add a leaderboeard, and a serialized file to save it
+
 
                     shadow();
                     gravity();
@@ -110,6 +122,7 @@ public class Main extends Application {
 
                 currentTetromino = Queue.getList().get(0);
                 currentTetromino.setActive(true);
+
                 root.getChildren().add(currentTetromino.getMinoCentral());
                 root.getChildren().add(currentTetromino.getMinoC());
                 root.getChildren().add(currentTetromino.getMinoB());
@@ -124,8 +137,6 @@ public class Main extends Application {
                 shadow = new Tetromino(currentTetromino);
 
                 Queue.cycleList();
-                //TODO Show queue
-
             }
             private static void collisions(){
 
