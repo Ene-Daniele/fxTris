@@ -12,6 +12,11 @@ public class I extends Tetromino {
     }
 
     @Override
+    public boolean isI() { //? Needed for SRS
+        return true;
+    }
+
+    @Override
     public void update() {
 
         switch (this.rotationIndex){

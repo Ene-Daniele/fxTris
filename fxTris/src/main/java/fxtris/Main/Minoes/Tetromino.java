@@ -186,6 +186,9 @@ public class Tetromino {
     }
 
     public void update(){/* Override in subclasses */}
+    public boolean isI(){
+        return false;
+    }
 
     public final boolean canRotate(){
         boolean temp = false;
@@ -198,12 +201,16 @@ public class Tetromino {
 
     public void rotation(int sin){
         /*
+        ? https://tetris.wiki/Super_Rotation_System
         * Clone the tetromino to "notRotated"
         * Rotate the tetromino {rotationIndex += sign; this.update();}
         * Clone the tetromino to "rotated"
+        * if (!isI()){
         * Check1: if (!canRotate()){Clone "rotated" into the tetromino, offset1}
         * Check2: if (!canRotate()){Clone "rotated" into the tetromino, offset2}
         * LastCheck: if (!canRotate()){Clone "notRotated" into the tetromino}
+        * else {
+        * I checks: etc etc
         */
     }
 }
