@@ -102,7 +102,6 @@ public class Main extends Application {
                     left.toFront();
                     right.toFront();
                     down.toFront();
-                    top.toFront();
                 } else {
                     placeTetromino();
                 }
