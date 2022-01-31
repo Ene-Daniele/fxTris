@@ -87,8 +87,8 @@ public class Tetromino {
         this.minoCentral = new Rectangle(TILE, TILE, color);
 
         //! Change this to show up in the queue instead
-        minoCentral.setY(TILE * 3);
-        minoCentral.setX(TILE * 5);
+        minoCentral.setY(TILE * GROUND + 40);
+        minoCentral.setX(TILE * 14);
 
         this.minoA.setStroke(Color.BLACK);
         this.minoB.setStroke(Color.BLACK);
@@ -97,16 +97,20 @@ public class Tetromino {
     }
 
     public void rotationCCW(){
-        this.rotationIndex--;
-        if (this.rotationIndex < 1){
-            this.rotationIndex = 4;
+        int temp = this.rotationIndex;
+        temp--;
+        if (temp < 1){
+            temp = 4;
         }
+        this.rotation(temp);
     }
     public void rotationCW(){
-        this.rotationIndex++;
-        if (this.rotationIndex > 4){
-            this.rotationIndex = 1;
+        int temp = this.rotationIndex;
+        temp++;
+        if (temp > 4){
+            temp = 1;
         }
+        this.rotation(temp);
     }
     public void rotation180(){
         switch (this.rotationIndex){
@@ -189,28 +193,70 @@ public class Tetromino {
     public boolean isI(){
         return false;
     }
+    public boolean isO(){
+        return false;
+    }
 
+    //* Super Rotation System
+    private boolean overlap(Rectangle mino1, Rectangle mino2){
+        return
+                mino1.getY() == mino2.getY() && mino1.getX() == mino2.getX()
+                || mino2.getX() > RIGHTWALL * TILE
+                || mino2.getX() < LEFTWALL
+                || mino2.getY() > GRAVITY * TILE;
+    }
     public final boolean canRotate(){
-        boolean temp = false;
-        //TODO Check if you can rotate with the new index, do this After having done all rotation indexes
+        boolean temp = true;
+        for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
+            for (Rectangle deadMino : i) {
+                if (
+                    overlap(deadMino, this.minoCentral)
+                    || overlap(deadMino, this.minoA)
+                    || overlap(deadMino, this.minoB)
+                    || overlap(deadMino, this.minoC)
+                )
+                {
+                    temp = false;
+                }
+            }
+        }
         return temp;
     }
     public void offset(int x, int y){
-        //* This is needed for SRS checks
+        this.minoCentral.setX(this.minoCentral.getX() + (x * TILE));
+        this.minoCentral.setY(this.minoCentral.getY() + (x * TILE));
+        this.update();
     }
 
-    public void rotation(int sin){
-        /*
-        ? https://tetris.wiki/Super_Rotation_System
-        * Clone the tetromino to "notRotated"
-        * Rotate the tetromino {rotationIndex += sign; this.update();}
-        * Clone the tetromino to "rotated"
-        * if (!isI()){
-        * Check1: if (!canRotate()){Clone "rotated" into the tetromino, offset1}
-        * Check2: if (!canRotate()){Clone "rotated" into the tetromino, offset2}
-        * LastCheck: if (!canRotate()){Clone "notRotated" into the tetromino}
-        * else {
-        * I checks: etc etc
-        */
+    public void rotation(int newId){
+        //? https://tetris.wiki/Super_Rotation_System
+
+        int oldIndex = this.rotationIndex;
+        this.rotationIndex = newId;
+        this.update();
+
+        if (!this.isI()){ //* <J, L, O, S, Z, T> Rotations
+            switch (this.rotationIndex){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+            }
+        } else { //* <I> Rotations
+            switch (this.rotationIndex) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+            }
+        }
     }
 }

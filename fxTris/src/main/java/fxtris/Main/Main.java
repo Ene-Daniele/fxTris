@@ -39,6 +39,8 @@ public class Main extends Application {
 
     private static boolean singleTap = true;
     public static boolean hardDropped = false;
+    public static boolean cwed = false;
+    public static boolean ccwed = false;
 
     public static void resetXMovement(){
         tempARR = 0;
@@ -95,6 +97,7 @@ public class Main extends Application {
                     gravity();
                     collisions();
                     borderCheck(); //? This goes into movement()
+                    rotation();
                     hardDrop();
 
                     currentTetromino.update();
@@ -120,12 +123,9 @@ public class Main extends Application {
                 Matrix.addMinoes(currentTetromino.getMinoA());
 
                 currentTetromino = Queue.getList().get(0);
+                currentTetromino.getMinoCentral().setY(TILE * 3);
+                currentTetromino.getMinoCentral().setX(TILE * 5);
                 currentTetromino.setActive(true);
-
-                root.getChildren().add(currentTetromino.getMinoCentral());
-                root.getChildren().add(currentTetromino.getMinoC());
-                root.getChildren().add(currentTetromino.getMinoB());
-                root.getChildren().add(currentTetromino.getMinoA());
 
                 //Removing old shadow
                 root.getChildren().remove(shadow.getMinoCentral());
@@ -255,6 +255,17 @@ public class Main extends Application {
                 currentTetromino.getMinoB().toFront();
                 currentTetromino.getMinoC().toFront();
 
+            }
+            private static void rotation(){
+                if (Keyboard.isRotateCW() && !cwed) {
+                    cwed = true;
+                    currentTetromino.rotationCW();
+                } else if (!Keyboard.isRotateCW()){cwed = false;}
+
+                if (Keyboard.isRotateCCW() && !ccwed) {
+                    ccwed = true;
+                    currentTetromino.rotationCCW();
+                } else if (!Keyboard.isRotateCCW()){ccwed = false;}
             }
         };
 

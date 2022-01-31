@@ -12,15 +12,20 @@ public class O extends Tetromino {
     }
 
     @Override
+    public boolean isO() {
+        return true;
+    }
+
+    @Override
     public void update() {
 
         minoA.setY(minoCentral.getY() + TILE);
         minoA.setX(minoCentral.getX() + TILE);
 
-        minoB.setY(minoCentral.getY());
-        minoB.setX(minoCentral.getX() + TILE);
+        minoB.setY(minoCentral.getY() + TILE);
+        minoB.setX(minoCentral.getX());
 
-        minoC.setY(minoCentral.getY() + TILE);
-        minoC.setX(minoCentral.getX());
+        minoC.setY(minoCentral.getY());
+        minoC.setX(minoCentral.getX() + TILE);
     }
 }
