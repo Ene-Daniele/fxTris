@@ -82,15 +82,14 @@ public class Main extends Application {
 
                 if (currentTetromino.isActive()) {
 
-                    //TODO Show queue
-                    //TODO Finish rotation IDs
-                    //TODO Add rotations
+                    //TODO Add SRS
                     //TODO Add swap
                     //TODO Add UI stuff (score, swapped piece, etc)
                     //TODO Add settings
                     //TODO Add reset method to reset if needed
                     //TODO Add settings, and a serialized file to save them
                     //TODO Add a leaderboeard, and a serialized file to save it
+                    //TODO Add icon and sounds effects
 
 
                     shadow();
