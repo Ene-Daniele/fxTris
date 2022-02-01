@@ -25,26 +25,11 @@ public class I extends Tetromino {
         switch (this.rotationIndex){
             case 1:
 
-                switch (lastIndex){
-                    case 1:
-                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
-                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
-                        break;
-                    case 2:
-                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
-                        centerX = (int) (minoCentral.getX());
-                        lastIndex = rotationIndex;
-                        break;
-                    case 3:
-                        centerY = (int) (minoCentral.getY());
-                        centerX = (int) (minoCentral.getX());
-                        lastIndex = rotationIndex;
-                        break;
-                    case 4:
-                        centerY = (int) (minoCentral.getY());
-                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
-                        lastIndex = rotationIndex;
-                        break;
+                if (lastIndex == rotationIndex){
+                    centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
+                    centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
+                } else {
+                    lastIndex = rotationIndex;
                 }
 
                 minoA.setY(centerY - TILE);
@@ -61,26 +46,11 @@ public class I extends Tetromino {
                 break;
             case 2:
 
-                switch (lastIndex){
-                    case 1:
-                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
-                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
-                        lastIndex = rotationIndex;
-                        break;
-                    case 2:
-                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
-                        centerX = (int) (minoCentral.getX());
-                        break;
-                    case 3:
-                        centerY = (int) (minoCentral.getY());
-                        centerX = (int) (minoCentral.getX());
-                        lastIndex = rotationIndex;
-                        break;
-                    case 4:
-                        centerY = (int) (minoCentral.getY());
-                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
-                        lastIndex = rotationIndex;
-                        break;
+                if (lastIndex == rotationIndex){
+                    centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
+                    centerX = (int) (minoCentral.getX());
+                } else {
+                    lastIndex = rotationIndex;
                 }
 
                 minoA.setY(centerY - TILE * 2);
@@ -97,26 +67,11 @@ public class I extends Tetromino {
                 break;
             case 3:
 
-                switch (lastIndex){
-                    case 1:
-                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
-                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
-                        lastIndex = rotationIndex;
-                        break;
-                    case 2:
-                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
-                        centerX = (int) (minoCentral.getX());
-                        lastIndex = rotationIndex;
-                        break;
-                    case 3:
-                        centerY = (int) (minoCentral.getY());
-                        centerX = (int) (minoCentral.getX());
-                        break;
-                    case 4:
-                        centerY = (int) (minoCentral.getY());
-                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
-                        lastIndex = rotationIndex;
-                        break;
+                if (lastIndex == rotationIndex){
+                    centerY = (int) (minoCentral.getY());
+                    centerX = (int) (minoCentral.getX());
+                } else {
+                    lastIndex = rotationIndex;
                 }
 
                 minoA.setY(centerY);
@@ -134,26 +89,11 @@ public class I extends Tetromino {
                 break;
             case 4:
 
-                switch (lastIndex){
-                    case 1:
-                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
-                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
-                        lastIndex = rotationIndex;
-                        break;
-                    case 2:
-                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
-                        centerX = (int) (minoCentral.getX());
-                        lastIndex = rotationIndex;
-                        break;
-                    case 3:
-                        centerY = (int) (minoCentral.getY());
-                        centerX = (int) (minoCentral.getX());
-                        lastIndex = rotationIndex;
-                        break;
-                    case 4:
-                        centerY = (int) (minoCentral.getY());
-                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
-                        break;
+                if (lastIndex == rotationIndex){
+                    centerY = (int) (minoCentral.getY());
+                    centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
+                } else {
+                    lastIndex = rotationIndex;
                 }
 
                 minoA.setY(centerY - TILE * 2);
