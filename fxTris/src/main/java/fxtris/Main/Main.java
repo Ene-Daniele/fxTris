@@ -41,6 +41,7 @@ public class Main extends Application {
     public static boolean hardDropped = false;
     public static boolean cwed = false;
     public static boolean ccwed = false;
+    public static boolean one80ed = false;
 
     public static void resetXMovement(){
         tempARR = 0;
@@ -265,6 +266,11 @@ public class Main extends Application {
                     ccwed = true;
                     currentTetromino.rotationCCW();
                 } else if (!Keyboard.isRotateCCW()){ccwed = false;}
+                
+                if (Keyboard.isRotate180() && !one80ed) {
+                    one80ed = true;
+                    currentTetromino.rotation180();
+                } else if (!Keyboard.isRotate180()){one80ed = false;}
             }
         };
 
