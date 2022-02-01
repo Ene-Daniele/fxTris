@@ -1,6 +1,7 @@
 package fxtris.Main.Others;
 
 import fxtris.Main.Main;
+import fxtris.Main.Minoes.Tetromino;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -21,18 +22,29 @@ public class Matrix {
         }
     }
 
-    public static void addMinoes(Rectangle mino){
+    public static void addTetromino(Tetromino tetromino){
 
-        for (int i = 0; i < 20; i++){
-            if (mino.getY() == (i + 5) * TILE){
-                matrixGrid.get(i).add(mino);
-                Main.root.getChildren().add(matrixGrid.get(i).get(matrixGrid.get(i).indexOf(mino)));
-                if (matrixGrid.get(i).size() == 10){
-                    clearRow(i);
-                }
+        addMino(tetromino.getMinoCentral());
+        addMino(tetromino.getMinoA());
+        addMino(tetromino.getMinoB());
+        addMino(tetromino.getMinoC());
+
+        for (int i = 0; i < matrixGrid.size(); i++){
+            if (matrixGrid.get(i).size() == 10){
+                clearRow(i);
             }
         }
     }
+
+    private static void addMino(Rectangle mino){
+        for (int i = 0; i < matrixGrid.size(); i++){
+            if (mino.getY() == (i + 5) * TILE){
+                matrixGrid.get(i).add(mino);
+                Main.root.getChildren().add(mino);
+            }
+        }
+    }
+
 
     private static void clearRow(int row){
 
@@ -42,7 +54,7 @@ public class Matrix {
         matrixGrid.remove(row);
         matrixGrid.add(0, new ArrayList<>());
 
-        for (int i = row; i > 0; i--){
+        for (int i = row; i > -1; i--){
             for (int j = 0; j < 10; j++){
 
                 try {

@@ -15,6 +15,7 @@ public class Tetromino {
 
     protected Color color;
     protected int rotationIndex;
+    protected int lastIndex;
     protected boolean active;
     private boolean collided;
 
@@ -231,6 +232,7 @@ public class Tetromino {
         //? https://tetris.wiki/Super_Rotation_System
 
         int oldIndex = this.rotationIndex;
+        this.lastIndex = this.rotationIndex;
         this.rotationIndex = newId;
         this.update();
 

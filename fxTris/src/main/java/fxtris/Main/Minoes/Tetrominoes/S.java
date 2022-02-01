@@ -36,24 +36,24 @@ public class S extends Tetromino {
                 minoA.setX(minoCentral.getX() + TILE);
                 break;
             case 3:
-                minoA.setY(minoCentral.getY());
-                minoA.setX(minoCentral.getX() - TILE);
-
-                minoB.setY(minoCentral.getY() - TILE);
-                minoB.setX(minoCentral.getX());
-
-                minoC.setY(minoCentral.getY() - TILE);
-                minoC.setX(minoCentral.getX() + TILE);
-                break;
-            case 4:
-                minoC.setY(minoCentral.getY() - TILE);
+                minoC.setY(minoCentral.getY() + TILE);
                 minoC.setX(minoCentral.getX());
 
                 minoB.setY(minoCentral.getY());
                 minoB.setX(minoCentral.getX() + TILE);
 
                 minoA.setY(minoCentral.getY() + TILE);
-                minoA.setX(minoCentral.getX() + TILE);
+                minoA.setX(minoCentral.getX() - TILE);
+                break;
+            case 4:
+                minoC.setY(minoCentral.getY() - TILE);
+                minoC.setX(minoCentral.getX() - TILE);
+
+                minoB.setY(minoCentral.getY());
+                minoB.setX(minoCentral.getX() - TILE);
+
+                minoA.setY(minoCentral.getY() + TILE);
+                minoA.setX(minoCentral.getX());
                 break;
         }
     }

@@ -83,29 +83,32 @@ public class Main extends Application {
 
                 if (currentTetromino.isActive()) {
 
-                    //TODO Add SRS
+                    //TODO Fix I tetromino rotations
                     //TODO Add swap
-                    //TODO Add UI stuff (score, swapped piece, etc)
-                    //TODO Add settings
+                    //TODO Add SRS
+                    //TODO Add UI stuff (score, last clear, b2b, etc)
                     //TODO Add reset method to reset if needed
                     //TODO Add settings, and a serialized file to save them
                     //TODO Add a leaderboeard, and a serialized file to save it
                     //TODO Add icon and sounds effects
 
 
-                    shadow();
                     gravity();
                     collisions();
-                    borderCheck(); //? This goes into movement()
                     rotation();
+                    borderCheck(); //? This goes into movement()
                     hardDrop();
 
+                    currentTetromino.getMinoCentral().setStroke(Color.WHITE);
+
                     currentTetromino.update();
+                    shadow();
 
                     left.toFront();
                     right.toFront();
                     down.toFront();
                 } else {
+                    currentTetromino.update();
                     placeTetromino();
                 }
             }
@@ -117,10 +120,7 @@ public class Main extends Application {
                 root.getChildren().remove(currentTetromino.getMinoB());
                 root.getChildren().remove(currentTetromino.getMinoC());
                 //Replacing it with an inactive one
-                Matrix.addMinoes(currentTetromino.getMinoCentral());
-                Matrix.addMinoes(currentTetromino.getMinoC());
-                Matrix.addMinoes(currentTetromino.getMinoB());
-                Matrix.addMinoes(currentTetromino.getMinoA());
+                Matrix.addTetromino(currentTetromino);
 
                 currentTetromino = Queue.getList().get(0);
                 currentTetromino.getMinoCentral().setY(TILE * 3);
@@ -167,6 +167,7 @@ public class Main extends Application {
                 }
             }
             private static void borderCheck(){
+                currentTetromino.update();
                 if ((
                     currentTetromino.getMinoCentral().getX() - TILE != LEFTWALL // * TILE
                     && currentTetromino.getMinoA().getX() - TILE != LEFTWALL

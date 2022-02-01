@@ -27,13 +27,13 @@ public class J extends Tetromino {
                 break;
             case 2:
 
-                minoA.setY(minoCentral.getY() + TILE * 2);
+                minoA.setY(minoCentral.getY() + TILE);
                 minoA.setX(minoCentral.getX());
 
-                minoB.setY(minoCentral.getY() + TILE);
+                minoB.setY(minoCentral.getY() - TILE);
                 minoB.setX(minoCentral.getX());
 
-                minoC.setY(minoCentral.getY());
+                minoC.setY(minoCentral.getY() - TILE);
                 minoC.setX(minoCentral.getX() + TILE);
                 break;
             case 3:
@@ -41,19 +41,19 @@ public class J extends Tetromino {
                 minoA.setX(minoCentral.getX() + TILE);
 
                 minoB.setY(minoCentral.getY());
-                minoB.setX(minoCentral.getX() - TILE);
+                minoB.setX(minoCentral.getX() + TILE);
 
                 minoC.setY(minoCentral.getY());
-                minoC.setX(minoCentral.getX() + TILE);
+                minoC.setX(minoCentral.getX() - TILE);
                 break;
             case 4:
-                minoA.setY(minoCentral.getY() + TILE);
+                minoA.setY(minoCentral.getY() - TILE);
                 minoA.setX(minoCentral.getX());
 
                 minoB.setY(minoCentral.getY() + TILE);
                 minoB.setX(minoCentral.getX() - TILE);
 
-                minoC.setY(minoCentral.getY() - TILE);
+                minoC.setY(minoCentral.getY() + TILE);
                 minoC.setX(minoCentral.getX());
                 break;
         }
