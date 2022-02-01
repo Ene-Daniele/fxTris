@@ -113,16 +113,15 @@ public class Tetromino {
         this.rotation(temp);
     }
     public void rotation180(){
-        switch (this.rotationIndex){
-            case 1:
-                this.rotationIndex = 3;
-            case 2:
-                this.rotationIndex = 4;
-            case 3:
-                this.rotationIndex = 1;
-            case 4:
-                this.rotationIndex = 2;
+        int temp = this.rotationIndex;
+
+        if (!(temp + 2 > 4)){
+            temp += 2;
+        } else {
+            temp -= 2;
         }
+
+        this.rotation(temp);
     }
 
     private boolean generalCollision(Rectangle mino, Rectangle deadMino){
