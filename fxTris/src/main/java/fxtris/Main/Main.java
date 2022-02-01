@@ -83,7 +83,6 @@ public class Main extends Application {
 
                 if (currentTetromino.isActive()) {
 
-                    //TODO Fix I tetromino rotations
                     //TODO Add swap
                     //TODO Add SRS
                     //TODO Add UI stuff (score, last clear, b2b, etc)
@@ -98,8 +97,6 @@ public class Main extends Application {
                     rotation();
                     borderCheck(); //? This goes into movement()
                     hardDrop();
-
-                    currentTetromino.getMinoCentral().setStroke(Color.WHITE);
 
                     currentTetromino.update();
                     shadow();

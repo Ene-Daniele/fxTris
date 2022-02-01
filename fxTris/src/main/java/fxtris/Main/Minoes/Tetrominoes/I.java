@@ -11,6 +11,9 @@ public class I extends Tetromino {
         super(Color.CYAN);
     }
 
+    int centerX; //? The I tetromino doesnt rotate on a central mino like the others, it has a center of rotation.
+    int centerY;
+
     @Override
     public boolean isI() { //? Needed for SRS
         return true;
@@ -22,47 +25,148 @@ public class I extends Tetromino {
         switch (this.rotationIndex){
             case 1:
 
-                minoA.setY(minoCentral.getY());
-                minoA.setX(minoCentral.getX() - TILE);
+                switch (lastIndex){
+                    case 1:
+                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
+                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
+                        break;
+                    case 2:
+                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
+                        centerX = (int) (minoCentral.getX());
+                        lastIndex = rotationIndex;
+                        break;
+                    case 3:
+                        centerY = (int) (minoCentral.getY());
+                        centerX = (int) (minoCentral.getX());
+                        lastIndex = rotationIndex;
+                        break;
+                    case 4:
+                        centerY = (int) (minoCentral.getY());
+                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
+                        lastIndex = rotationIndex;
+                        break;
+                }
 
-                minoB.setY(minoCentral.getY());
-                minoB.setX(minoCentral.getX() + TILE);
+                minoA.setY(centerY - TILE);
+                minoA.setX(centerX - TILE * 2);
 
-                minoC.setY(minoCentral.getY());
-                minoC.setX(minoCentral.getX() + TILE*2);
+                minoCentral.setY(centerY - TILE);
+                minoCentral.setX(centerX - TILE);
+
+                minoB.setY(centerY - TILE);
+                minoB.setX(centerX);
+
+                minoC.setY(centerY - TILE);
+                minoC.setX(centerX + TILE);
                 break;
             case 2:
 
-                minoA.setY(minoCentral.getY() - TILE);
-                minoA.setX(minoCentral.getX());
+                switch (lastIndex){
+                    case 1:
+                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
+                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
+                        lastIndex = rotationIndex;
+                        break;
+                    case 2:
+                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
+                        centerX = (int) (minoCentral.getX());
+                        break;
+                    case 3:
+                        centerY = (int) (minoCentral.getY());
+                        centerX = (int) (minoCentral.getX());
+                        lastIndex = rotationIndex;
+                        break;
+                    case 4:
+                        centerY = (int) (minoCentral.getY());
+                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
+                        lastIndex = rotationIndex;
+                        break;
+                }
 
-                minoB.setY(minoCentral.getY() + TILE);
-                minoB.setX(minoCentral.getX());
+                minoA.setY(centerY - TILE * 2);
+                minoA.setX(centerX);
 
-                minoC.setY(minoCentral.getY() + TILE * 2);
-                minoC.setX(minoCentral.getX());
+                minoCentral.setY(centerY - TILE);
+                minoCentral.setX(centerX);
+
+                minoB.setY(centerY);
+                minoB.setX(centerX);
+
+                minoC.setY(centerY + TILE);
+                minoC.setX(centerX);
                 break;
             case 3:
 
-                minoA.setY(minoCentral.getY());
-                minoA.setX(minoCentral.getX() - TILE);
+                switch (lastIndex){
+                    case 1:
+                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
+                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
+                        lastIndex = rotationIndex;
+                        break;
+                    case 2:
+                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
+                        centerX = (int) (minoCentral.getX());
+                        lastIndex = rotationIndex;
+                        break;
+                    case 3:
+                        centerY = (int) (minoCentral.getY());
+                        centerX = (int) (minoCentral.getX());
+                        break;
+                    case 4:
+                        centerY = (int) (minoCentral.getY());
+                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
+                        lastIndex = rotationIndex;
+                        break;
+                }
 
-                minoB.setY(minoCentral.getY());
-                minoB.setX(minoCentral.getX() + TILE);
+                minoA.setY(centerY);
+                minoA.setX(centerX - TILE * 2);
 
-                minoC.setY(minoCentral.getY());
-                minoC.setX(minoCentral.getX() + TILE*2);
+                minoCentral.setY(centerY);
+                minoCentral.setX(centerX);
+
+                minoB.setY(centerY);
+                minoB.setX(centerX - TILE);
+
+                minoC.setY(centerY);
+                minoC.setX(centerX + TILE);
+
                 break;
             case 4:
 
-                minoA.setY(minoCentral.getY() - TILE);
-                minoA.setX(minoCentral.getX());
+                switch (lastIndex){
+                    case 1:
+                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
+                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
+                        lastIndex = rotationIndex;
+                        break;
+                    case 2:
+                        centerY = (int) (minoCentral.getY() + minoCentral.getHeight());
+                        centerX = (int) (minoCentral.getX());
+                        lastIndex = rotationIndex;
+                        break;
+                    case 3:
+                        centerY = (int) (minoCentral.getY());
+                        centerX = (int) (minoCentral.getX());
+                        lastIndex = rotationIndex;
+                        break;
+                    case 4:
+                        centerY = (int) (minoCentral.getY());
+                        centerX = (int) (minoCentral.getX() + minoCentral.getWidth());
+                        break;
+                }
 
-                minoB.setY(minoCentral.getY() + TILE);
-                minoB.setX(minoCentral.getX());
+                minoA.setY(centerY - TILE * 2);
+                minoA.setX(centerX - TILE);
 
-                minoC.setY(minoCentral.getY() + TILE * 2);
-                minoC.setX(minoCentral.getX());
+                minoB.setY(centerY - TILE);
+                minoB.setX(centerX - TILE);
+
+                minoCentral.setY(centerY);
+                minoCentral.setX(centerX - TILE);
+
+                minoC.setY(centerY + TILE);
+                minoC.setX(centerX - TILE);
                 break;
         }
     }

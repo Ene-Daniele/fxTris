@@ -15,7 +15,7 @@ public class Tetromino {
 
     protected Color color;
     protected int rotationIndex;
-    protected int lastIndex;
+    protected int lastIndex = 1;
     protected boolean active;
     private boolean collided;
 
