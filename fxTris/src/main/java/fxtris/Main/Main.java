@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -65,10 +66,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Line left = new Line(TILE, TILE * 5, TILE, GROUND * TILE);
+        Line left = new Line(TILE * LEFTWALL + TILE, TILE * 5, TILE * LEFTWALL + TILE, GROUND * TILE);
         Line right = new Line(TILE * RIGHTWALL, TILE * 5, TILE * RIGHTWALL, TILE * GROUND);
-        Line down = new Line(TILE * RIGHTWALL, TILE * GROUND, TILE, GROUND * TILE);
-        Line top = new Line(TILE * RIGHTWALL, TILE * 5, TILE, TILE * 5);
+        Line down = new Line(TILE * RIGHTWALL + (TILE * 6), TILE * GROUND, TILE, GROUND * TILE);
+        Line top = new Line(TILE * RIGHTWALL + (TILE * 6), TILE * 5, TILE, TILE * 5);
 
         addLine(left);
         addLine(right);
@@ -88,8 +89,7 @@ public class Main extends Application {
             public void handle(long l) {
 
                 if (currentTetromino.isActive()) {
-
-                    //TODO Add swap
+                    //TODO add swap UI
                     //TODO Add SRS
                     //TODO Add UI stuff (score, last clear, b2b, etc)
                     //TODO Add reset method to reset if needed
@@ -125,7 +125,7 @@ public class Main extends Application {
 
                 currentTetromino = Queue.getList().get(0);
                 currentTetromino.getMinoCentral().setY(TILE * 3);
-                currentTetromino.getMinoCentral().setX(TILE * 5);
+                currentTetromino.getMinoCentral().setX(TILE * 11);
                 currentTetromino.setActive(true);
                 swapped = false;
 
@@ -168,10 +168,10 @@ public class Main extends Application {
             private static void borderCheck(){
                 currentTetromino.update();
                 if ((
-                    currentTetromino.getMinoCentral().getX() - TILE != LEFTWALL // * TILE
-                    && currentTetromino.getMinoA().getX() - TILE != LEFTWALL
-                    && currentTetromino.getMinoB().getX() - TILE != LEFTWALL
-                    && currentTetromino.getMinoC().getX() - TILE != LEFTWALL
+                    currentTetromino.getMinoCentral().getX() - TILE != LEFTWALL * TILE
+                    && currentTetromino.getMinoA().getX() - TILE != LEFTWALL * TILE
+                    && currentTetromino.getMinoB().getX() - TILE != LEFTWALL * TILE
+                    && currentTetromino.getMinoC().getX() - TILE != LEFTWALL * TILE
 
                     && currentTetromino.isntCollisingHorizontally(-1)
                 ) && Keyboard.isLeft()){
@@ -286,25 +286,41 @@ public class Main extends Application {
                                     hold = temp;
 
                                     currentTetromino.getMinoCentral().setY(TILE * 3);
-                                    currentTetromino.getMinoCentral().setX(TILE * 5);
+                                    currentTetromino.getMinoCentral().setX(TILE * 11);
                                     currentTetromino.setActive(true);
                                     Matrix.removeFromRoot(shadow);
                                     shadow = new Tetromino(currentTetromino, Color.DARKSLATEGRAY);
                                     currentTetromino.update();
                                     shadow.update();
                                     Matrix.addToRoot(currentTetromino);
+
+                                    Matrix.removeFromRoot(save);
+                                    save = Tetromino.getID(hold);
+                                    save.getMinoCentral().setX(TILE * 3);
+                                    save.getMinoCentral().setY(TILE * 7);
+                                    save.paint(hold.getMinoCentral().getFill());
+                                    save.update();
+                                    Matrix.addToRoot(save);
                                 } else {
                                     hold = Tetromino.getID(currentTetromino);
                                     Matrix.removeFromRoot(currentTetromino);
                                     currentTetromino = Queue.getList().get(0);
                                     currentTetromino.getMinoCentral().setY(TILE * 3);
-                                    currentTetromino.getMinoCentral().setX(TILE * 5);
+                                    currentTetromino.getMinoCentral().setX(TILE * 11);
                                     currentTetromino.update();
                                     currentTetromino.setActive(true);
                                     Matrix.removeFromRoot(shadow);
                                     shadow = new Tetromino(currentTetromino, Color.DARKSLATEGRAY);
                                     Queue.cycleList();
                                     firstSwap = false;
+
+                                    Matrix.removeFromRoot(save);
+                                    save = Tetromino.getID(hold);
+                                    save.getMinoCentral().setX(TILE * 3);
+                                    save.getMinoCentral().setY(TILE * 7);
+                                    save.paint(hold.getMinoCentral().getFill());
+                                    save.update();
+                                    Matrix.addToRoot(save);
                                 }
                                 swapped = true;
                             }

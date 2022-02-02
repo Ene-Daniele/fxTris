@@ -101,9 +101,8 @@ public class Tetromino {
         this.minoC = new Rectangle(TILE, TILE, color);
         this.minoCentral = new Rectangle(TILE, TILE, color);
 
-        //! Change this to show up in the queue instead
-        minoCentral.setY(TILE * GROUND + 40);
-        minoCentral.setX(TILE * 14);
+        minoCentral.setY(TILE * GROUND + (TILE * 3));
+        minoCentral.setX(TILE * 20);
 
         this.minoA.setStroke(Color.BLACK);
         this.minoB.setStroke(Color.BLACK);
@@ -273,6 +272,7 @@ public class Tetromino {
 
     public void rotation(int newId){
         //? https://tetris.wiki/Super_Rotation_System
+        //? https://four.lol/srs/j-kicks Make your own custom offsets with your old plan
 
         int oldIndex = this.rotationIndex;
         this.lastIndex = this.rotationIndex;
@@ -282,6 +282,7 @@ public class Tetromino {
         if (!this.isI()){ //* <J, L, O, S, Z, T> Rotations
             switch (this.rotationIndex){
                 case 1:
+                    //* If oldIndex < rotationIndex do clockwise rotation, else do counterclockwise
                     break;
                 case 2:
                     break;
