@@ -9,6 +9,7 @@ public class J extends Tetromino {
 
     public J() {
         super(Color.BLUE);
+        this.tetrominoID = 2;
     }
 
     @Override

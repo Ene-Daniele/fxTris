@@ -1,10 +1,12 @@
 package fxtris.Main.Minoes;
 
 import fxtris.Main.Main;
+import fxtris.Main.Minoes.Tetrominoes.*;
 import fxtris.Main.Others.Matrix;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Effect;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -15,9 +17,16 @@ public class Tetromino {
 
     protected Color color;
     protected int rotationIndex;
+
+    public void setRotationIndex(int rotationIndex) {
+        this.rotationIndex = rotationIndex;
+    }
+
     protected int lastIndex = 1;
     protected boolean active;
     private boolean collided;
+
+    public int tetrominoID;
 
     public boolean isCollided() {
         return collided;
@@ -30,16 +39,13 @@ public class Tetromino {
         this.active = active;
     }
 
-    public Tetromino(Tetromino other){
+    public Tetromino(Tetromino other, Paint color){
         this.rotationIndex = other.rotationIndex;
         this.minoCentral = new Rectangle(other.getMinoCentral().getX(), other.getMinoCentral().getY(), TILE, TILE);
         this.minoA = new Rectangle(other.getMinoA().getX(), other.getMinoA().getY(), TILE, TILE);
         this.minoB = new Rectangle(other.getMinoB().getX(), other.getMinoB().getY(), TILE, TILE);
         this.minoC = new Rectangle(other.getMinoC().getX(), other.getMinoC().getY(), TILE, TILE);
-        this.getMinoCentral().setFill(Color.DARKSLATEGRAY);
-        this.getMinoA().setFill(Color.DARKSLATEGRAY);
-        this.getMinoB().setFill(Color.DARKSLATEGRAY);
-        this.getMinoC().setFill(Color.DARKSLATEGRAY);
+        paint(color);
     }
 
     protected Rectangle minoA;
@@ -51,6 +57,14 @@ public class Tetromino {
     private int fourSlide = 240;
 
     public Tetromino(){}
+
+    public void paint(Paint color){
+
+        this.getMinoCentral().setFill(color);
+        this.getMinoA().setFill(color);
+        this.getMinoB().setFill(color);
+        this.getMinoC().setFill(color);
+    }
 
     public Rectangle getMinoA() {
         return minoA;
@@ -123,6 +137,35 @@ public class Tetromino {
         }
 
         this.rotation(temp);
+    }
+
+    public static Tetromino getID(Tetromino tetromino){
+        Tetromino temp = null;
+
+        switch (tetromino.tetrominoID){
+            case 1:
+                temp = new I();
+                break;
+            case 2:
+                temp = new J();
+                break;
+            case 3:
+                temp = new L();
+                break;
+            case 4:
+                temp = new O();
+                break;
+            case 5:
+                temp = new S();
+                break;
+            case 6:
+                temp = new T();
+                break;
+            case 7:
+                temp = new Z();
+                break;
+        }
+        return temp;
     }
 
     private boolean generalCollision(Rectangle mino, Rectangle deadMino){

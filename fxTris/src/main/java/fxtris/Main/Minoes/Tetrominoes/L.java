@@ -11,6 +11,7 @@ public class L extends Tetromino {
 
     public L() {
         super(Color.ORANGE);
+        this.tetrominoID = 3;
     }
 
     @Override

@@ -9,6 +9,7 @@ public class S extends Tetromino {
 
     public S() {
         super(Color.LIGHTGREEN);
+        this.tetrominoID = 5;
     }
 
     @Override

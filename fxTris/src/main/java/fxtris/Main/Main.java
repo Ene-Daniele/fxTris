@@ -31,6 +31,12 @@ public class Main extends Application {
 
     public static Tetromino currentTetromino = new Tetromino();
     public static Tetromino shadow = new Tetromino();
+    public static Tetromino hold = new Tetromino();
+    public static Tetromino save = new Tetromino();
+
+    public static boolean swapped = false;
+    public static boolean firstSwap = true;
+    public static boolean swapping = false;
 
     private static int tempGRV = 0;
     private static int tempSDF = 0;
@@ -91,7 +97,7 @@ public class Main extends Application {
                     //TODO Add a leaderboeard, and a serialized file to save it
                     //TODO Add icon and sounds effects
 
-
+                    swap();
                     gravity();
                     collisions();
                     rotation();
@@ -109,13 +115,11 @@ public class Main extends Application {
                     placeTetromino();
                 }
             }
+
             private static void placeTetromino(){
 
                 //Removing old tetromino
-                root.getChildren().remove(currentTetromino.getMinoCentral());
-                root.getChildren().remove(currentTetromino.getMinoA());
-                root.getChildren().remove(currentTetromino.getMinoB());
-                root.getChildren().remove(currentTetromino.getMinoC());
+                Matrix.removeFromRoot(currentTetromino);
                 //Replacing it with an inactive one
                 Matrix.addTetromino(currentTetromino);
 
@@ -123,14 +127,12 @@ public class Main extends Application {
                 currentTetromino.getMinoCentral().setY(TILE * 3);
                 currentTetromino.getMinoCentral().setX(TILE * 5);
                 currentTetromino.setActive(true);
+                swapped = false;
 
                 //Removing old shadow
-                root.getChildren().remove(shadow.getMinoCentral());
-                root.getChildren().remove(shadow.getMinoA());
-                root.getChildren().remove(shadow.getMinoB());
-                root.getChildren().remove(shadow.getMinoC());
+                Matrix.removeFromRoot(shadow);
 
-                shadow = new Tetromino(currentTetromino);
+                shadow = new Tetromino(currentTetromino, Color.DARKSLATEGRAY);
 
                 Queue.cycleList();
             }
@@ -269,6 +271,48 @@ public class Main extends Application {
                     one80ed = true;
                     currentTetromino.rotation180();
                 } else if (!Keyboard.isRotate180()){one80ed = false;}
+            }
+            private static void swap(){
+                if (Keyboard.isSwap()) {
+                    if (!swapping){
+                        swapping = true;
+                        if (!swapped){
+                            if (!swapped){
+                                if (!firstSwap){
+                                    Matrix.removeFromRoot(currentTetromino);
+                                    Tetromino temp = Tetromino.getID(currentTetromino);
+
+                                    currentTetromino = Tetromino.getID(hold);
+                                    hold = temp;
+
+                                    currentTetromino.getMinoCentral().setY(TILE * 3);
+                                    currentTetromino.getMinoCentral().setX(TILE * 5);
+                                    currentTetromino.setActive(true);
+                                    Matrix.removeFromRoot(shadow);
+                                    shadow = new Tetromino(currentTetromino, Color.DARKSLATEGRAY);
+                                    currentTetromino.update();
+                                    shadow.update();
+                                    Matrix.addToRoot(currentTetromino);
+                                } else {
+                                    hold = Tetromino.getID(currentTetromino);
+                                    Matrix.removeFromRoot(currentTetromino);
+                                    currentTetromino = Queue.getList().get(0);
+                                    currentTetromino.getMinoCentral().setY(TILE * 3);
+                                    currentTetromino.getMinoCentral().setX(TILE * 5);
+                                    currentTetromino.update();
+                                    currentTetromino.setActive(true);
+                                    Matrix.removeFromRoot(shadow);
+                                    shadow = new Tetromino(currentTetromino, Color.DARKSLATEGRAY);
+                                    Queue.cycleList();
+                                    firstSwap = false;
+                                }
+                                swapped = true;
+                            }
+                        }
+                    }
+                } else {
+                    swapping = false;
+                }
             }
         };
 

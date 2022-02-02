@@ -9,6 +9,7 @@ public class I extends Tetromino {
 
     public I() {
         super(Color.CYAN);
+        this.tetrominoID = 1;
     }
 
     int centerX; //? The I tetromino doesnt rotate on a central mino like the others, it has a center of rotation.

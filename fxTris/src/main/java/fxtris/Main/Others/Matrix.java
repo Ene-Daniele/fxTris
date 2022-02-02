@@ -22,6 +22,19 @@ public class Matrix {
         }
     }
 
+    public static void removeFromRoot(Tetromino tetromino){
+        Main.root.getChildren().remove(tetromino.getMinoCentral());
+        Main.root.getChildren().remove(tetromino.getMinoA());
+        Main.root.getChildren().remove(tetromino.getMinoB());
+        Main.root.getChildren().remove(tetromino.getMinoC());
+    }
+    public static void addToRoot(Tetromino tetromino){
+        Main.root.getChildren().add(tetromino.getMinoCentral());
+        Main.root.getChildren().add(tetromino.getMinoA());
+        Main.root.getChildren().add(tetromino.getMinoB());
+        Main.root.getChildren().add(tetromino.getMinoC());
+    }
+
     public static void addTetromino(Tetromino tetromino){
 
         addMino(tetromino.getMinoCentral());
