@@ -274,33 +274,25 @@ public class Tetromino {
         //? https://tetris.wiki/Super_Rotation_System
         //? https://four.lol/srs/j-kicks Make your own custom offsets with your old plan
 
-        int oldIndex = this.rotationIndex;
-        this.lastIndex = this.rotationIndex;
-        this.rotationIndex = newId;
-        this.update();
+        int oldIndex = this.rotationIndex; //Needed for this function
+        this.lastIndex = this.rotationIndex; //Needed for I piece basic rotation
+        this.rotationIndex = newId; //Update the rotation index
+        this.update(); //Update the tetromino to the new rotation index
 
         if (!this.isI()){ //* <J, L, O, S, Z, T> Rotations
-            switch (this.rotationIndex){
-                case 1:
-                    //* If oldIndex < rotationIndex do clockwise rotation, else do counterclockwise
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
+
+            if (oldIndex < this.rotationIndex){
+                //!CLOCKWISE
+            } else {
+                //!COUNTERLOCKWISE
             }
+
         } else { //* <I> Rotations
-            switch (this.rotationIndex) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
+
+            if (oldIndex < this.rotationIndex){
+                //!CLOCKWISE
+            } else {
+                //!COUNTERLOCKWISE
             }
         }
     }

@@ -2,13 +2,10 @@ package fxtris.Main.Queue;
 
 import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
-import javafx.scene.layout.TilePane;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static fxtris.Main.Others.GlobalValues.GROUND;
 import static fxtris.Main.Others.GlobalValues.TILE;
 
 public class Queue {
@@ -33,7 +30,7 @@ public class Queue {
             Main.root.getChildren().add(list.get(list.size() - 2).getMinoA());
             Main.root.getChildren().add(list.get(list.size() - 2).getMinoB());
             Main.root.getChildren().add(list.get(list.size() - 2).getMinoC());
-        }catch (Exception e){}
+        } catch (Exception ignored){}
 
         for (Tetromino i : list){
             i.getMinoCentral().setY(i.getMinoCentral().getY() - TILE * 3);
@@ -67,7 +64,7 @@ public class Queue {
                 Main.root.getChildren().add(list.get(list.size() - 2).getMinoA());
                 Main.root.getChildren().add(list.get(list.size() - 2).getMinoB());
                 Main.root.getChildren().add(list.get(list.size() - 2).getMinoC());
-            }catch (Exception e){}
+            } catch (Exception ignored){}
         }
 
         bag = new Bag();
