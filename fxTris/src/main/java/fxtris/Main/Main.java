@@ -30,7 +30,6 @@ public class Main extends Application {
     public static Tetromino currentTetromino = new Tetromino();
 
     static void addLine(Line line) {
-
         line.setStroke(Color.WHITE);
         line.setStrokeWidth(2);
         root.getChildren().add(line);
