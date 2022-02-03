@@ -10,7 +10,7 @@ public class GlobalValues {
         GlobalValues.das = das;
     }
 
-    private static int arr = 1; //Frames in between the tetrominoes movements after the das
+    private static int arr = 0; //Frames in between the tetrominoes movements after the das
     public static int getArr() {
         return arr;
     }

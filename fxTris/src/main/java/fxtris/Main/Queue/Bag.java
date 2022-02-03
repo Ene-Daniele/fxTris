@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 class Bag {
 
-    private ArrayList <Tetromino> bag;
+    private final ArrayList <Tetromino> bag;
 
     public Bag(){
-        this.bag = new ArrayList <Tetromino> ();
+        this.bag = new ArrayList<>();
 
         bag.add(new Z());
         bag.add(new J());

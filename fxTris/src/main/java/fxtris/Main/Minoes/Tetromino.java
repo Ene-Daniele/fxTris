@@ -1,11 +1,8 @@
 package fxtris.Main.Minoes;
 
-import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetrominoes.*;
 import fxtris.Main.Others.Matrix;
-import fxtris.Main.Others.SuperRotationSystem;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.Effect;
+import fxtris.Main.GameEvents.SuperRotationSystem;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -186,7 +183,7 @@ public class Tetromino {
                 && mino.getX() == deadMino.getX();
     }
 
-    public boolean isColliding(){
+    public boolean verticalCollision(){
         boolean temp = false;
 
         if (groundCheck()){
@@ -215,7 +212,7 @@ public class Tetromino {
     }
 
 
-    public boolean isntCollisingHorizontally(int sign){
+    public boolean horizontalCollision(int sign){
         boolean temp = true;
         for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
             for (Rectangle deadMino : i) {

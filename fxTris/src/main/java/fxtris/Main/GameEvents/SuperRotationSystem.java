@@ -1,6 +1,7 @@
-package fxtris.Main.Others;
+package fxtris.Main.GameEvents;
 
 import fxtris.Main.Minoes.Tetromino;
+import fxtris.Main.Others.Matrix;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import static fxtris.Main.Others.GlobalValues.TILE;
 
 public class SuperRotationSystem {
 
-    private boolean overlap(Rectangle mino1, Rectangle mino2){
+    public static boolean intersect(Rectangle mino1, Rectangle mino2){
         return
                 mino1.getY() == mino2.getY() && mino1.getX() == mino2.getX()
                         || mino2.getX() > RIGHTWALL * TILE
@@ -22,10 +23,10 @@ public class SuperRotationSystem {
         for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
             for (Rectangle deadMino : i) {
                 if (
-                        overlap(deadMino, tetromino.getMinoCentral())
-                                || overlap(deadMino, tetromino.getMinoA())
-                                || overlap(deadMino, tetromino.getMinoB())
-                                || overlap(deadMino, tetromino.getMinoC())
+                        intersect(deadMino, tetromino.getMinoCentral())
+                                || intersect(deadMino, tetromino.getMinoA())
+                                || intersect(deadMino, tetromino.getMinoB())
+                                || intersect(deadMino, tetromino.getMinoC())
                 )
                 {
                     temp = false;
@@ -36,7 +37,7 @@ public class SuperRotationSystem {
     }
     private void offset(Tetromino tetromino, int x, int y){
         tetromino.getMinoCentral().setX(tetromino.getMinoCentral().getX() + (x * TILE));
-        tetromino.getMinoCentral().setY(tetromino.getMinoCentral().getY() + (x * TILE));
+        tetromino.getMinoCentral().setY(tetromino.getMinoCentral().getY() + (y * TILE));
         tetromino.update();
     }
 
@@ -55,7 +56,7 @@ public class SuperRotationSystem {
                 //!CLOCKWISE
 
             } else {
-                //!COUNTERLOCKWISE
+                //!COUNTERCLOCKWISE
             }
 
         } else { //* <I> Rotations
@@ -63,7 +64,7 @@ public class SuperRotationSystem {
             if (oldIndex < tetromino.getRotationIndex()){
                 //!CLOCKWISE
             } else {
-                //!COUNTERLOCKWISE
+                //!COUNTERCLOCKWISE
             }
         }
     }

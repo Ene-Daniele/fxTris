@@ -10,9 +10,9 @@ import static fxtris.Main.Others.GlobalValues.TILE;
 
 public class Queue {
 
-    private static ArrayList <Tetromino> list = new ArrayList <Tetromino> (7);
+    private static final ArrayList <Tetromino> list = new ArrayList<>(7);
     private static Bag bag = new Bag();
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     public static ArrayList<Tetromino> getList() {
         return list;
