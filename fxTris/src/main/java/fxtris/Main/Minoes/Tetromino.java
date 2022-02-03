@@ -101,7 +101,7 @@ public class Tetromino {
         this.fourSlide = fourSlide;
     }
 
-    protected Tetromino(Color color){
+    public Tetromino(Color color){
         this.rotationIndex = 1;
         this.collided = false;
         this.active = false;

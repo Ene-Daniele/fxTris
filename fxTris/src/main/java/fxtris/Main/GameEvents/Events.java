@@ -8,6 +8,7 @@ import fxtris.Main.Queue.Queue;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.lang.annotation.Documented;
 import java.util.ArrayList;
 
 import static fxtris.Main.Main.currentTetromino;
@@ -286,5 +287,19 @@ public class Events {
                 }
             }
         }
+    }
+    public static boolean topOut(Tetromino currentTetromino){
+        boolean temp = false;
+        if
+        ((
+            currentTetromino.getMinoCentral().getY() < CEILING * TILE
+            && currentTetromino.getMinoA().getY() < CEILING * TILE
+            && currentTetromino.getMinoB().getY() < CEILING * TILE
+            && currentTetromino.getMinoC().getY() < CEILING * TILE
+        ) && !(Matrix.getMatrixGrid().get(Matrix.getMatrixGrid().size() - 2)).isEmpty())
+        {
+            temp = true;
+        }
+        return temp;
     }
 }

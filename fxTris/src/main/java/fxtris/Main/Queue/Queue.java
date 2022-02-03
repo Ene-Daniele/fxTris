@@ -47,6 +47,8 @@ public class Queue {
 
     public static void loadFirstQueue() {
 
+        bag = new Bag();
+
         for (int i = 0; i < 7; i++){
             int selectedMino = random.nextInt(bag.getBag().size());
             list.add(bag.getBag().get(selectedMino));
