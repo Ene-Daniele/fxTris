@@ -27,6 +27,8 @@ public class Main extends Application {
     public static Scene scene = new Scene(root, 800, 800, Color.BLACK);
     public static Settings settings;
 
+    public static AnimationTimer frames;
+
     public static Tetromino currentTetromino = new Tetromino();
 
     static void addLine(Line line) {
@@ -76,12 +78,14 @@ public class Main extends Application {
         //* Placeholder tetromino needed to start cycling through the queue, it will change as soon as handle() starts.
         currentTetromino = new S();
 
-        AnimationTimer frames = new AnimationTimer() { //AnimationTimer my beloved <3
+        frames = new AnimationTimer() { //AnimationTimer my beloved <3
 
             @Override
             public void handle(long l) {
 
                 if (currentTetromino.isActive()) {
+
+                    //TODO Fix Reset not giving a new tetromino from the new bag, make the scene reload or something
                     //TODO Add SRS
                     //TODO Put the main root stuff in a separated class in the Stages package
                     //TODO Add UI stuff (score, last clear, b2b, etc)

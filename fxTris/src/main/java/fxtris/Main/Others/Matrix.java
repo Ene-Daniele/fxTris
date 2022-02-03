@@ -80,7 +80,6 @@ public class Matrix {
         }
     }
     public static void reset(){
-
         for (Tetromino i : Queue.getList()){
             removeFromRoot(i);
         }
