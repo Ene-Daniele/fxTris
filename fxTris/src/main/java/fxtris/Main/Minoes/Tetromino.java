@@ -3,6 +3,7 @@ package fxtris.Main.Minoes;
 import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetrominoes.*;
 import fxtris.Main.Others.Matrix;
+import fxtris.Main.Others.SuperRotationSystem;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Effect;
 import javafx.scene.paint.Color;
@@ -21,8 +22,19 @@ public class Tetromino {
     public void setRotationIndex(int rotationIndex) {
         this.rotationIndex = rotationIndex;
     }
+    public int getRotationIndex() {
+        return rotationIndex;
+    }
 
     protected int lastIndex = 1;
+
+    public int getLastIndex() {
+        return lastIndex;
+    }
+    public void setLastIndex(int lastIndex) {
+        this.lastIndex = lastIndex;
+    }
+
     protected boolean active;
     private boolean collided;
 
@@ -116,7 +128,7 @@ public class Tetromino {
         if (temp < 1){
             temp = 4;
         }
-        this.rotation(temp);
+        SuperRotationSystem.rotation(this, temp);
     }
     public void rotationCW(){
         int temp = this.rotationIndex;
@@ -124,7 +136,7 @@ public class Tetromino {
         if (temp > 4){
             temp = 1;
         }
-        this.rotation(temp);
+        SuperRotationSystem.rotation(this, temp);
     }
     public void rotation180(){
         int temp = this.rotationIndex;
@@ -135,8 +147,9 @@ public class Tetromino {
             temp -= 2;
         }
 
-        this.rotation(temp);
+        SuperRotationSystem.rotation(this, temp);
     }
+
 
     public static Tetromino getID(Tetromino tetromino){
         Tetromino temp = null;
@@ -237,63 +250,5 @@ public class Tetromino {
     }
     public boolean isO(){
         return false;
-    }
-
-    //* Super Rotation System
-    private boolean overlap(Rectangle mino1, Rectangle mino2){
-        return
-                mino1.getY() == mino2.getY() && mino1.getX() == mino2.getX()
-                || mino2.getX() > RIGHTWALL * TILE
-                || mino2.getX() < LEFTWALL
-                || mino2.getY() > GRAVITY * TILE;
-    }
-    public final boolean canRotate(){
-        boolean temp = true;
-        for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
-            for (Rectangle deadMino : i) {
-                if (
-                    overlap(deadMino, this.minoCentral)
-                    || overlap(deadMino, this.minoA)
-                    || overlap(deadMino, this.minoB)
-                    || overlap(deadMino, this.minoC)
-                )
-                {
-                    temp = false;
-                }
-            }
-        }
-        return temp;
-    }
-    public void offset(int x, int y){
-        this.minoCentral.setX(this.minoCentral.getX() + (x * TILE));
-        this.minoCentral.setY(this.minoCentral.getY() + (x * TILE));
-        this.update();
-    }
-
-    public void rotation(int newId){
-        //? https://tetris.wiki/Super_Rotation_System
-        //? https://four.lol/srs/j-kicks Make your own custom offsets with your old plan
-
-        int oldIndex = this.rotationIndex; //Needed for this function
-        this.lastIndex = this.rotationIndex; //Needed for I piece basic rotation
-        this.rotationIndex = newId; //Update the rotation index
-        this.update(); //Update the tetromino to the new rotation index
-
-        if (!this.isI()){ //* <J, L, O, S, Z, T> Rotations
-
-            if (oldIndex < this.rotationIndex){
-                //!CLOCKWISE
-            } else {
-                //!COUNTERLOCKWISE
-            }
-
-        } else { //* <I> Rotations
-
-            if (oldIndex < this.rotationIndex){
-                //!CLOCKWISE
-            } else {
-                //!COUNTERLOCKWISE
-            }
-        }
     }
 }
