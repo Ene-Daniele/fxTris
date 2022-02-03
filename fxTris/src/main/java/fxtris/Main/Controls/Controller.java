@@ -3,6 +3,8 @@ package fxtris.Main.Controls;
 import fxtris.Main.GameEvents.Events;
 import fxtris.Main.Main;
 
+import static javafx.scene.input.KeyCode.ESCAPE;
+
 public class Controller {
 
     public static void loadController(){
@@ -37,6 +39,16 @@ public class Controller {
                 case S -> Keyboard.setHardDrop(false);
                 case W -> Keyboard.setRotate180(false);
                 case F -> Keyboard.setSwap(false);
+                case CONTROL -> {
+                    if (!Keyboard.isLeft() && !Keyboard.isRight()) {
+                        Main.settings.openSettings();
+                    }
+                }
+            }
+        });
+        Main.settings.getSettingsScene().setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().equals(ESCAPE)){
+                Main.settings.getSettingsStage().close();
             }
         });
     }

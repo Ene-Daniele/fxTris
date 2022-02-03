@@ -8,8 +8,14 @@ import javafx.stage.Stage;
 public class Settings {
 
     private Group settingsRoot = new Group();
-    Scene settingsScene = new Scene(settingsRoot, 400, 600);
+    private Scene settingsScene = new Scene(settingsRoot, 400, 600);
     private Stage settingsStage = new Stage();
+    public Stage getSettingsStage() {
+        return settingsStage;
+    }
+    public Scene getSettingsScene() {
+        return settingsScene;
+    }
 
     public void openSettings() {
         settingsStage.setScene(settingsScene);

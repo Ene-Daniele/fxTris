@@ -25,6 +25,7 @@ public class Main extends Application {
     public static Group root = new Group();
 
     public static Scene scene = new Scene(root, 800, 800, Color.BLACK);
+    public static Settings settings;
 
     public static Tetromino currentTetromino = new Tetromino();
 
@@ -45,6 +46,7 @@ public class Main extends Application {
 
         Text holdtxt = new Text("HOLD");
         Text nexttxt = new Text("NEXT");
+        Text settingstxt = new Text("To open settings press CTRL");
         holdtxt.setFill(Color.WHITE);
         holdtxt.setX(50);
         holdtxt.setY(100);
@@ -53,18 +55,15 @@ public class Main extends Application {
         nexttxt.setX(470);
         nexttxt.setY(100);
         nexttxt.setFont(Font.font(40));
+        settingstxt.setFill(Color.WHITE);
+        settingstxt.setX(180);
+        settingstxt.setY(780);
+        settingstxt.setFont(Font.font(20));
         root.getChildren().add(holdtxt);
         root.getChildren().add(nexttxt);
+        root.getChildren().add(settingstxt);
 
-        Settings settings = new Settings();
-
-        Button settingsButton = new Button("Settings");
-        settingsButton.setLayoutX(445);
-        settingsButton.setLayoutY(700);
-        settingsButton.setPrefHeight(40);
-        settingsButton.setPrefWidth(120);
-        settingsButton.setOnMouseClicked(EventHandler -> settings.openSettings());
-        root.getChildren().add(settingsButton);
+        settings = new Settings();
 
         addLine(left);
         addLine(right);
