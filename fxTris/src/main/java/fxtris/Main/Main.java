@@ -85,6 +85,7 @@ public class Main extends Application {
 
                 if (currentTetromino.isActive()) {
                     //TODO Add SRS
+                    //TODO Put the main root stuff in a separated class in the Stages package
                     //TODO Add UI stuff (score, last clear, b2b, etc)
                     //TODO Add settings, and a serialized file to save them
                     //TODO Add a leaderboeard, and a serialized file to save it
