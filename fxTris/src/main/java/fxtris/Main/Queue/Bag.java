@@ -5,7 +5,7 @@ import fxtris.Main.Minoes.Tetrominoes.*;
 
 import java.util.ArrayList;
 
-class Bag {
+public class Bag {
 
     private final ArrayList <Tetromino> bag;
 

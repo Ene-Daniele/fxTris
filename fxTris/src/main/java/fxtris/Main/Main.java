@@ -85,12 +85,11 @@ public class Main extends Application {
 
                 if (currentTetromino.isActive()) {
 
-                    //TODO Fix Reset not giving a new tetromino from the new bag, make the scene reload or something
                     //TODO Add SRS
                     //TODO Put the main root stuff in a separated class in the Stages package
                     //TODO Add UI stuff (score, last clear, b2b, etc)
                     //TODO Add settings, and a serialized file to save them
-                    //TODO Add a leaderboeard, and a serialized file to save it
+                    //TODO Add a leaderboard, and a serialized file to save it
                     //TODO Add icon and sounds effects
 
                     swap();
@@ -112,10 +111,25 @@ public class Main extends Application {
                     currentTetromino.update();
                     Tetromino temp = new Tetromino(currentTetromino, currentTetromino.getMinoCentral().getFill());
                     placeTetromino();
+
                     if (topOut(temp)){/*
                         ? I needed a temp for this because the current tetromino wasnt getting deleted,
                         ? so i do it after i add it to the matrix, and use a temp to verify the topOut condition*/
                         Matrix.reset();
+                        Matrix.removeFromRoot(currentTetromino);
+
+                        currentTetromino = Queue.getList().get(0);
+                        currentTetromino.getMinoCentral().setY(TILE * 3);
+                        currentTetromino.getMinoCentral().setX(TILE * 11);
+                        currentTetromino.setActive(true);
+                        swapped = false;
+
+                        //Removing old shadow
+                        Matrix.removeFromRoot(shadow);
+
+                        shadow = new Tetromino(currentTetromino, Color.DARKSLATEGRAY);
+
+                        Queue.cycleList();
                     }
                 }
             }

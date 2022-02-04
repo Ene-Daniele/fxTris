@@ -10,9 +10,13 @@ import static fxtris.Main.Others.GlobalValues.TILE;
 
 public class Queue {
 
-    private static final ArrayList <Tetromino> list = new ArrayList<>(7);
+    private static ArrayList <Tetromino> list = new ArrayList<>(7);
     private static Bag bag = new Bag();
-    private static final Random random = new Random();
+    public static void setBag(Bag bag) {
+        Queue.bag = bag;
+    }
+
+    private static Random random = new Random();
 
     public static ArrayList<Tetromino> getList() {
         return list;
@@ -48,6 +52,7 @@ public class Queue {
     public static void loadFirstQueue() {
 
         bag = new Bag();
+        list.clear();
 
         for (int i = 0; i < 7; i++){
             int selectedMino = random.nextInt(bag.getBag().size());

@@ -34,6 +34,9 @@ public class Events {
     public static boolean hardDropped = false;
     public static boolean hitWall = false;
 
+    /**
+     * Increases tempGRV by 1 and if its above GRAVITY (or GRAVITY / sdf if Keyboard.isSoftDrop) push the tetromino down by one tile and reset tempGRV
+     */
     public static void gravity(){
 
         tempGRV++;

@@ -3,6 +3,7 @@ package fxtris.Main.Others;
 import fxtris.Main.GameEvents.Events;
 import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
+import fxtris.Main.Queue.Bag;
 import fxtris.Main.Queue.Queue;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
