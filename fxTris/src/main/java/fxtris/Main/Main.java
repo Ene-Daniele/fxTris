@@ -99,11 +99,14 @@ public class Main extends Application {
                     borderCheck(); //? This goes into movement(), in the Events class
                     hardDrop();
 
-                    settings.openSettings();
                     currentTetromino.update();
                     shadow();
 
                     fixOverlapBug(); //Corner collision bug, classic reoccurrence in every project of mine
+
+                    if (settings.isShowing()){
+                        Events.setTempGRV(0);
+                    }
 
                     left.toFront();
                     right.toFront();

@@ -40,7 +40,7 @@ public class Controller {
                 case W -> Keyboard.setRotate180(false);
                 case F -> Keyboard.setSwap(false);
                 case CONTROL -> {
-                    if (!Keyboard.isLeft() && !Keyboard.isRight()) {
+                    if (!Keyboard.isLeft() && !Keyboard.isRight() && !Keyboard.isSoftDrop()) {
                         Main.settings.openSettings();
                     }
                 }

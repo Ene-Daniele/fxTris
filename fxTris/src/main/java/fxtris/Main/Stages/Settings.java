@@ -19,10 +19,14 @@ public class Settings {
 
     public void openSettings() {
         settingsStage.setScene(settingsScene);
+        settingsStage.setResizable(false);
         try {
             settingsStage.initModality(Modality.APPLICATION_MODAL);
         } catch (Exception e){}
         settingsStage.show();
     }
 
+    public boolean isShowing() {
+        return settingsStage.isShowing();
+    }
 }
