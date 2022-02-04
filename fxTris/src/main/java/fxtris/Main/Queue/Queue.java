@@ -22,7 +22,10 @@ public class Queue {
         return list;
     }
 
-    public static void cycleList() throws IllegalArgumentException {
+    /**
+     * Removes the tetromino in position 0, picks a new one from the bag, and makes a new bag if needed
+     */
+    public static void cycleList() {
         list.remove(0);
 
         int selectedMino = random.nextInt(bag.getBag().size());
@@ -49,6 +52,9 @@ public class Queue {
         }
     }
 
+    /**
+     * Loads 7 tetrominos into the list
+     */
     public static void loadFirstQueue() {
 
         bag = new Bag();

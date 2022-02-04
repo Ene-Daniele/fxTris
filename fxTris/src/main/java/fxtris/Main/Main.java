@@ -32,6 +32,10 @@ public class Main extends Application {
 
     public static Tetromino currentTetromino = new Tetromino();
 
+    /**
+     *
+     * @param line line to format and add to the root
+     */
     static void addLine(Line line) {
         line.setStroke(Color.WHITE);
         line.setStrokeWidth(2);

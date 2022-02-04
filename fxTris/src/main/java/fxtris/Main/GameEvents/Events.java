@@ -14,19 +14,21 @@ import java.util.ArrayList;
 import static fxtris.Main.Main.currentTetromino;
 import static fxtris.Main.Others.GlobalValues.*;
 
+/**
+ * Main events happening during the game, and an array of variables relative to those
+ */
 public class Events {
 
     public static Tetromino shadow = new Tetromino();
     public static Tetromino hold = new Tetromino();
     public static Tetromino save = new Tetromino();
 
+    private static int tempARR = 0;
+    private static int tempDAS = 0;
     private static int tempGRV = 0;
     public static void setTempGRV(int tempGRV) {
         Events.tempGRV = tempGRV;
     }
-
-    private static int tempARR = 0;
-    private static int tempDAS = 0;
 
     public static boolean swapped = false;
     public static boolean firstSwap = true;
@@ -56,6 +58,10 @@ public class Events {
             }
         }
     }
+
+    /**
+     * Checks for collisions and sets a tetromino inactive need there be
+     */
     public static void collisions(){
 
         if (currentTetromino.verticalCollision()){
@@ -70,6 +76,10 @@ public class Events {
             currentTetromino.setActive(false);
         }
     }
+
+    /**
+     * Swaps the tetromino with the one being held, for the first cyccle it just replaces an empty held tetromino instead
+     */
     public static void swap(){
         if (Keyboard.isSwap()) {
             if (!swapping){
@@ -126,6 +136,10 @@ public class Events {
             swapping = false;
         }
     }
+
+    /**
+     * Places the tetromino and Cycles the list
+     */
     public static void placeTetromino(){
 
         //Removing old tetromino
@@ -146,6 +160,10 @@ public class Events {
 
         Queue.cycleList();
     }
+
+    /**
+     * Refreshes the shadow to be under the tetromino at all times
+     */
     public static void shadow(){
 
         //Bringing the shadow to the new position, for some reason shadow.update() does not work
@@ -177,6 +195,10 @@ public class Events {
         currentTetromino.getMinoC().toFront();
 
     }
+
+    /**
+     * Calculates the new rotation index, then calls the Super Rotation System with it
+     */
     public static void rotation() {
         if (Keyboard.isRotateCW() && !cwed) {
             cwed = true;
@@ -202,6 +224,10 @@ public class Events {
             one80ed = false;
         }
     }
+
+    /**
+     * Checks if the tetromino isnt giong to collide horizontally
+     */
     public static void borderCheck() {
         currentTetromino.update();
         if (
@@ -242,6 +268,11 @@ public class Events {
             }
         }
     }
+
+    /**
+     * Moves the tetromino in the direction given by the method above
+     * @param sign Direction
+     */
     private static void movement(int sign) {
 
         if (tempDAS < getDas()) {
@@ -259,6 +290,10 @@ public class Events {
             }
         }
     }
+
+    /**
+     * Hard drops the tetromino with a while loop
+     */
     public static void hardDrop() {
         if (Keyboard.isHardDrop()) {
             if (!hardDropped) {
@@ -274,14 +309,28 @@ public class Events {
         }
 
     }
+
+    /**
+     * Needed to reset DAS after releasing a key
+     */
     public static void resetXMovement() {
         tempARR = 0;
         tempDAS = 0;
         singleTap = true;
     }
+
+    /**
+     * @param mino1 Dead mino checking on the active mino
+     * @param mino2 Actice mino being checked
+     * @return If the 2 minos are overlapping
+     */
     private static boolean overlap(Rectangle mino1, Rectangle mino2){
         return mino1.getY() == mino2.getY() && mino1.getX() == mino2.getX();
     }
+
+    /**
+     * Needed to fix corner collisions
+     */
     public static void fixOverlapBug(){
 
         for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
@@ -298,6 +347,12 @@ public class Events {
             }
         }
     }
+
+    /**
+     * Checks if youre topping out
+     * @param currentTetromino Tetromino that may cause to top out
+     * @return If the given tetromino is causing a top out
+     */
     public static boolean topOut(Tetromino currentTetromino){
         boolean temp = false;
         if

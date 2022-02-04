@@ -48,6 +48,11 @@ public class Tetromino {
         this.active = active;
     }
 
+    /**
+     * Clones a tetromino
+     * @param other Object being cloned
+     * @param color Color of the cloned object
+     */
     public Tetromino(Tetromino other, Paint color){
         this.rotationIndex = other.rotationIndex;
         this.minoCentral = new Rectangle(other.getMinoCentral().getX(), other.getMinoCentral().getY(), TILE, TILE);
@@ -147,7 +152,11 @@ public class Tetromino {
         SuperRotationSystem.rotation(this, temp);
     }
 
-
+    /**
+     * Factory method design pattern, returns an instance of Tetromino's subclasses depending on the current tetromino's ID
+     * @param tetromino Object being identified
+     * @return A new object based on the tetromino's ID
+     */
     public static Tetromino getID(Tetromino tetromino){
         Tetromino temp = null;
 
@@ -241,7 +250,11 @@ public class Tetromino {
                 || this.minoC.getY() + TILE == GROUND * TILE;
     }
 
+    /**
+     * Updates the minos relatively to the central mino, the method is overridden in the subclasses for their specific shapes
+     */
     public void update(){/* Override in subclasses */}
+
     public boolean isI(){
         return false;
     }

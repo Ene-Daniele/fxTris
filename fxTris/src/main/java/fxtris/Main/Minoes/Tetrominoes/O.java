@@ -12,6 +12,10 @@ public class O extends Tetromino {
         this.tetrominoID = 4;
     }
 
+    /**
+     * Needed to fix O tetromino height in the queue
+     * @return If the current tetromino is an O
+     */
     @Override
     public boolean isO() {
         return true;

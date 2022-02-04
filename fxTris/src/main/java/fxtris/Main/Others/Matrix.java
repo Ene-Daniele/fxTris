@@ -30,18 +30,32 @@ public class Matrix {
         }
     }
 
+    /**
+     * Removes a tetromino from the root
+     * @param tetromino Tetrmonio being removed
+     */
     public static void removeFromRoot(Tetromino tetromino){
         Main.root.getChildren().remove(tetromino.getMinoCentral());
         Main.root.getChildren().remove(tetromino.getMinoA());
         Main.root.getChildren().remove(tetromino.getMinoB());
         Main.root.getChildren().remove(tetromino.getMinoC());
     }
+
+    /**
+     * Adds a tetromino to the root
+     * @param tetromino Tetromino being added
+     */
     public static void addToRoot(Tetromino tetromino){
         Main.root.getChildren().add(tetromino.getMinoCentral());
         Main.root.getChildren().add(tetromino.getMinoA());
         Main.root.getChildren().add(tetromino.getMinoB());
         Main.root.getChildren().add(tetromino.getMinoC());
     }
+
+    /**
+     * Adds a tetromino to the matrix
+     * @param tetromino Tetromino being added to the matrix
+     */
     public static void addTetromino(Tetromino tetromino){
 
         addMino(tetromino.getMinoCentral());
@@ -55,6 +69,11 @@ public class Matrix {
             }
         }
     }
+
+    /**
+     * Adds a mino to the matrix, used from AddTetromino()
+     * @param mino Mino being added
+     */
     private static void addMino(Rectangle mino){
         for (int i = 0; i < matrixGrid.size(); i++){
             if (mino.getY() == (i + 1) * TILE){
@@ -63,6 +82,11 @@ public class Matrix {
             }
         }
     }
+
+    /**
+     * Clears a row if its size is 10
+     * @param row row being cleared
+     */
     private static void clearRow(int row){
 
         for (int j = 0; j < 10; j++){ //Removing from root
@@ -80,6 +104,10 @@ public class Matrix {
             }
         }
     }
+
+    /**
+     * Resets matrix, queue, held tetromino, and bag
+     */
     public static void reset(){
         for (Tetromino i : Queue.getList()){
             removeFromRoot(i);

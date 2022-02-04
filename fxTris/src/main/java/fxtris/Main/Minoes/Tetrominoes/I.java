@@ -15,6 +15,10 @@ public class I extends Tetromino {
     int centerX; //? The I tetromino doesnt rotate on a central mino like the others, it has a center of rotation.
     int centerY;
 
+    /**
+     * The I tetromino has special behaviours
+     * @return If the current tetromino is an I
+     */
     @Override
     public boolean isI() { //? Needed for SRS
         return true;
