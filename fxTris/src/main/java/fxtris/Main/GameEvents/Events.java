@@ -21,6 +21,10 @@ public class Events {
     public static Tetromino save = new Tetromino();
 
     private static int tempGRV = 0;
+    public static void setTempGRV(int tempGRV) {
+        Events.tempGRV = tempGRV;
+    }
+
     private static int tempARR = 0;
     private static int tempDAS = 0;
 

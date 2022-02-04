@@ -18,10 +18,7 @@ public class SuperRotationSystem {
      * @return if they intersect or not
      */
     public static boolean intersect(Rectangle mino1, Rectangle mino2){
-        return mino1.getY() == mino2.getY() && mino1.getX() == mino2.getX()
-                || mino2.getX() >= (double) RIGHTWALL * TILE
-                || mino2.getX() <= (double) LEFTWALL * TILE
-                || mino2.getY() >= (double) GROUND * TILE;
+        return mino1.getY() == mino2.getY() && mino1.getX() == mino2.getX();
     }
 
     /**
@@ -43,6 +40,25 @@ public class SuperRotationSystem {
                     temp = false;
                 }
             }
+        }
+        if (
+                tetromino.getMinoCentral().getX() >= (double) RIGHTWALL * TILE
+                || tetromino.getMinoA().getX() >= (double) RIGHTWALL * TILE
+                || tetromino.getMinoB().getX() >= (double) RIGHTWALL * TILE
+                || tetromino.getMinoC().getX() >= (double) RIGHTWALL * TILE
+
+                || tetromino.getMinoCentral().getX() <= (double) LEFTWALL * TILE
+                || tetromino.getMinoA().getX() <= (double) LEFTWALL * TILE
+                || tetromino.getMinoB().getX() <= (double) LEFTWALL * TILE
+                || tetromino.getMinoC().getX() <= (double) LEFTWALL * TILE
+
+                || tetromino.getMinoCentral().getY() >= (double) GROUND * TILE
+                || tetromino.getMinoA().getY() >= (double) GROUND * TILE
+                || tetromino.getMinoB().getY() >= (double) GROUND * TILE
+                || tetromino.getMinoC().getY() >= (double) GROUND * TILE
+                )
+        {
+            temp = false;
         }
         return temp;
     }
@@ -68,7 +84,7 @@ public class SuperRotationSystem {
      */
     public static void rotation(Tetromino tetromino, int newId){
         //? https://tetris.wiki/Super_Rotation_System
-        //? https://four.lol/srs/j-kicks Make your own custom offsets with your old plan
+        //? https://four.lol/srs/j-kicks
 
         final int oldIndex = tetromino.getRotationIndex(); //Needed for this function
         tetromino.setLastIndex(tetromino.getRotationIndex()); //Needed for I piece basic rotation
@@ -178,7 +194,7 @@ public class SuperRotationSystem {
 
         } else { //* <I> Rotations
 
-            if (oldIndex < tetromino.getRotationIndex()){
+            if (oldIndex < tetromino.getRotationIndex() || (oldIndex == 4 && tetromino.getRotationIndex() == 1)){
                 //!CLOCKWISE
                 switch (tetromino.getRotationIndex()){
                     case 1:

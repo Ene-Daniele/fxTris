@@ -1,6 +1,7 @@
 package fxtris.Main;
 
 import fxtris.Main.Controls.Controller;
+import fxtris.Main.GameEvents.Events;
 import fxtris.Main.Minoes.Tetromino;
 import fxtris.Main.Minoes.Tetrominoes.S;
 import fxtris.Main.Others.Matrix;
@@ -98,6 +99,7 @@ public class Main extends Application {
                     borderCheck(); //? This goes into movement(), in the Events class
                     hardDrop();
 
+                    settings.openSettings();
                     currentTetromino.update();
                     shadow();
 
