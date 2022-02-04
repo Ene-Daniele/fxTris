@@ -177,6 +177,7 @@ public class Events {
         if (Keyboard.isRotateCW() && !cwed) {
             cwed = true;
             currentTetromino.rotationCW();
+            currentTetromino.setOneSlide(60);
         } else if (!Keyboard.isRotateCW()) {
             cwed = false;
         }
@@ -184,6 +185,7 @@ public class Events {
         if (Keyboard.isRotateCCW() && !ccwed) {
             ccwed = true;
             currentTetromino.rotationCCW();
+            currentTetromino.setOneSlide(60);
         } else if (!Keyboard.isRotateCCW()) {
             ccwed = false;
         }
@@ -191,6 +193,7 @@ public class Events {
         if (Keyboard.isRotate180() && !one80ed) {
             one80ed = true;
             currentTetromino.rotation180();
+            currentTetromino.setOneSlide(60);
         } else if (!Keyboard.isRotate180()) {
             one80ed = false;
         }
