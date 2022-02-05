@@ -11,9 +11,12 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -21,6 +24,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import static fxtris.Main.GameEvents.Events.*;
@@ -99,19 +104,19 @@ public class Main extends Application {
                     //TODO Add UI stuff (score, last clear, b2b, etc)
                     //TODO Add settings, and a serialized file to save them
                     //TODO Add a leaderboard, and a serialized file to save it
-                    //TODO Add icon and sounds effects
+                    //TODO Add icon, BPM, and SFX
 
                     swap();
                     gravity();
-                    collisions();
                     rotation();
+                    collisions();
                     borderCheck(); //? This goes into movement(), in the Events class
                     hardDrop();
 
                     currentTetromino.update();
                     shadow();
 
-                    fixOverlapBug(); //Corner collision bug, classic reoccurrence in every project of mine+
+                    fixOverlapBug(); //Corner collision bug, classic reoccurrence in every project of mine
                     restart();
 
                     if (settings.isShowing()){
