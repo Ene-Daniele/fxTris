@@ -8,6 +8,8 @@ import fxtris.Main.Others.Matrix;
 import fxtris.Main.Stages.Settings;
 import fxtris.Main.Queue.Queue;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -17,6 +19,9 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.util.ArrayList;
 
 import static fxtris.Main.GameEvents.Events.*;
 import static fxtris.Main.Others.GlobalValues.*;
@@ -129,8 +134,8 @@ public class Main extends Application {
                     }
                 }
             }
-
         };
+
 
         stage.setTitle("fxTris");
         stage.setScene(scene);
