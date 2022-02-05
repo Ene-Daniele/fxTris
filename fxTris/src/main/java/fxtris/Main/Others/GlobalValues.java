@@ -18,7 +18,7 @@ public class GlobalValues {
         GlobalValues.arr = arr;
     }
 
-    private static int sdf = 60; //Divide gravity by this when soft dropping;
+    private static int sdf = 61; //Divide gravity by this when soft dropping;
     public static int getSdf() {
         return sdf;
     }

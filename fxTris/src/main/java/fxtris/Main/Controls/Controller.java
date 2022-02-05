@@ -19,6 +19,7 @@ public class Controller {
                 case S -> Keyboard.setHardDrop(true);
                 case W -> Keyboard.setRotate180(true);
                 case F -> Keyboard.setSwap(true);
+                case X -> Keyboard.setRestart(true);
             }
         });
         Main.scene.setOnKeyReleased(event -> {
@@ -44,6 +45,7 @@ public class Controller {
                         Main.settings.openSettings();
                     }
                 }
+                case X -> Keyboard.setRestart(false);
             }
         });
         Main.settings.getSettingsScene().setOnKeyPressed(keyEvent -> {

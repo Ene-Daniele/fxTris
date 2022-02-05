@@ -109,6 +109,7 @@ public class Matrix {
      * Resets matrix, queue, held tetromino, and bag
      */
     public static void reset(){
+
         for (Tetromino i : Queue.getList()){
             removeFromRoot(i);
         }

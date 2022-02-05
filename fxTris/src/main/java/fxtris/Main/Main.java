@@ -106,7 +106,8 @@ public class Main extends Application {
                     currentTetromino.update();
                     shadow();
 
-                    fixOverlapBug(); //Corner collision bug, classic reoccurrence in every project of mine
+                    fixOverlapBug(); //Corner collision bug, classic reoccurrence in every project of mine+
+                    restart();
 
                     if (settings.isShowing()){
                         Events.setTempGRV(0);
@@ -117,30 +118,18 @@ public class Main extends Application {
                     down.toFront();
                 } else {
                     currentTetromino.update();
-                    Tetromino temp = new Tetromino(currentTetromino, currentTetromino.getMinoCentral().getFill());
-                    placeTetromino();
-
-                    if (topOut(temp)){/*
+                    Tetromino temp = new Tetromino(currentTetromino, currentTetromino.getMinoCentral().getFill());/*
                         ? I needed a temp for this because the current tetromino wasnt getting deleted,
                         ? so i do it after i add it to the matrix, and use a temp to verify the topOut condition*/
-                        Matrix.reset();
-                        Matrix.removeFromRoot(currentTetromino);
 
-                        currentTetromino = Queue.getList().get(0);
-                        currentTetromino.getMinoCentral().setY(TILE * 3);
-                        currentTetromino.getMinoCentral().setX(TILE * 11);
-                        currentTetromino.setActive(true);
-                        swapped = false;
+                    placeTetromino();
 
-                        //Removing old shadow
-                        Matrix.removeFromRoot(shadow);
-
-                        shadow = new Tetromino(currentTetromino, Color.DARKSLATEGRAY);
-
-                        Queue.cycleList();
+                    if (topOut(temp)){
+                        reset();
                     }
                 }
             }
+
         };
 
         stage.setTitle("fxTris");

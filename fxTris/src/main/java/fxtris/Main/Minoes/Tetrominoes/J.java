@@ -8,7 +8,7 @@ import static fxtris.Main.Others.GlobalValues.TILE;
 public class J extends Tetromino {
 
     public J() {
-        super(Color.BLUE);
+        super(Color.DODGERBLUE);
         this.tetrominoID = 2;
     }
 

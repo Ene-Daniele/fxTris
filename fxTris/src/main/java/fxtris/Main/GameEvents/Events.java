@@ -39,17 +39,20 @@ public class Events {
     private static boolean singleTap = true;
     public static boolean hardDropped = false;
     public static boolean hitWall = false;
+    public static boolean restarted = false;
 
     /**
      * Increases tempGRV by 1 and if its above GRAVITY (or GRAVITY / sdf if Keyboard.isSoftDrop) push the tetromino down by one tile and reset tempGRV
      */
-    public static void gravity(){
+    public static void gravity() {
 
         tempGRV++;
         if (Keyboard.isSoftDrop()) {
-            if (tempGRV > GRAVITY / getSdf()) {
-                tempGRV = 0;
-                currentTetromino.getMinoCentral().setY(currentTetromino.getMinoCentral().getY() + TILE);
+            if (!currentTetromino.verticalCollision()) {
+                if (tempGRV > GRAVITY / getSdf()) {
+                    tempGRV = 0;
+                    currentTetromino.getMinoCentral().setY(currentTetromino.getMinoCentral().getY() + TILE);
+                }
             }
         } else { //? Dont know if i should make a function for barely 2 lines
             if (tempGRV > GRAVITY) {
@@ -270,6 +273,18 @@ public class Events {
     }
 
     /**
+     * Resets the matrix when pressing the bound key
+     */
+    public static void restart(){
+        if (Keyboard.isRestart() && !restarted){
+            reset();
+            restarted = true;
+        } else if (!Keyboard.isRestart()){
+            restarted = false;
+        }
+    }
+
+    /**
      * Moves the tetromino in the direction given by the method above
      * @param sign Direction
      */
@@ -329,7 +344,7 @@ public class Events {
     }
 
     /**
-     * Needed to fix corner collisions
+     * Needed to fix corner collisions and a weird I tetromino bug where it would fly out of the matrix
      */
     public static void fixOverlapBug(){
 
@@ -344,6 +359,28 @@ public class Events {
                 {
                     currentTetromino.getMinoCentral().setY(currentTetromino.getMinoCentral().getY() - TILE);
                 }
+            }
+        }
+
+        if (    currentTetromino.getMinoCentral().getX() >= (double) RIGHTWALL * TILE
+                || currentTetromino.getMinoA().getX() >= (double) RIGHTWALL * TILE
+                || currentTetromino.getMinoB().getX() >= (double) RIGHTWALL * TILE
+                || currentTetromino.getMinoC().getX() >= (double) RIGHTWALL * TILE
+
+                || currentTetromino.getMinoCentral().getX() <= (double) LEFTWALL * TILE
+                || currentTetromino.getMinoA().getX() <= (double) LEFTWALL * TILE
+                || currentTetromino.getMinoB().getX() <= (double) LEFTWALL * TILE
+                || currentTetromino.getMinoC().getX() <= (double) LEFTWALL * TILE
+
+                || currentTetromino.getMinoCentral().getY() >= (double) GROUND * TILE
+                || currentTetromino.getMinoA().getY() >= (double) GROUND * TILE
+                || currentTetromino.getMinoB().getY() >= (double) GROUND * TILE
+                || currentTetromino.getMinoC().getY() >= (double) GROUND * TILE
+        )
+        {
+            if (currentTetromino.isI()){
+                currentTetromino.getMinoCentral().setX(TILE * 11);
+                currentTetromino.update();
             }
         }
     }
@@ -366,5 +403,26 @@ public class Events {
             temp = true;
         }
         return temp;
+    }
+
+    /**
+     * Resets the game to a new state, also through the use of the Matrix.reset() method
+     */
+    public static void reset(){
+        Matrix.reset();
+        Matrix.removeFromRoot(currentTetromino);
+
+        currentTetromino = Queue.getList().get(0);
+        currentTetromino.getMinoCentral().setY(TILE * 3);
+        currentTetromino.getMinoCentral().setX(TILE * 11);
+        currentTetromino.setActive(true);
+        swapped = false;
+
+        //Removing old shadow
+        Matrix.removeFromRoot(shadow);
+
+        shadow = new Tetromino(currentTetromino, Color.DARKSLATEGRAY);
+
+        Queue.cycleList();
     }
 }
