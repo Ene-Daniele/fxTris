@@ -84,8 +84,7 @@ public class SuperRotationSystem {
      */
     public static void rotation(Tetromino tetromino, int newId){
         //? https://tetris.wiki/Super_Rotation_System
-        //? https://four.lol/srs/j-kicks
-        //TODO Optimise this with a matrix and change x and y values in the loops accordingly
+        //? https://four.lol/srs/kicks-overview
 
         final int oldIndex = tetromino.getRotationIndex(); //Needed for this function
         tetromino.setLastIndex(tetromino.getRotationIndex()); //Needed for I piece basic rotation
