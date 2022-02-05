@@ -194,7 +194,8 @@ public class SuperRotationSystem {
 
         } else { //* <I> Rotations
 
-            if (oldIndex < tetromino.getRotationIndex() || (oldIndex == 4 && tetromino.getRotationIndex() == 1)){
+            if ((oldIndex < tetromino.getRotationIndex() || (oldIndex == 4 && tetromino.getRotationIndex() == 1))
+            && !(oldIndex == 1 && tetromino.getRotationIndex() == 4)){
                 //!CLOCKWISE
                 switch (tetromino.getRotationIndex()){
                     case 1:
@@ -282,10 +283,10 @@ public class SuperRotationSystem {
                     case 4:
                         offset(tetromino, 1,  0);
                         offset(tetromino, -3,  0);
-                        offset(tetromino, 3, 2);
+                        offset(tetromino, 3, -1);
                         offset(tetromino, -3,  -3);
                         if (!canRotate(tetromino)){
-                            offset(tetromino, 2, 1);
+                            offset(tetromino, 2, -2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
