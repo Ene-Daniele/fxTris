@@ -1,5 +1,6 @@
 package fxtris.Main.GameEvents;
 
+import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
 import fxtris.Main.Others.Matrix;
 import javafx.scene.shape.Rectangle;
@@ -75,6 +76,26 @@ public class SuperRotationSystem {
             tetromino.getMinoCentral().setY(tetromino.getMinoCentral().getY() + (y * TILE));
             tetromino.update();
         }
+    }
+
+    private static boolean tSpin(Tetromino tetromino){
+
+        int temp = 0;
+        for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
+            for (Rectangle deadMino : i) {
+                if
+                (
+                    tetromino.getMinoCentral().getX() - TILE == deadMino.getX() && tetromino.getMinoCentral().getY() - TILE == deadMino.getY()
+                    || tetromino.getMinoCentral().getX() + TILE == deadMino.getX() && tetromino.getMinoCentral().getY() - TILE == deadMino.getY()
+                    || tetromino.getMinoCentral().getX() + TILE == deadMino.getX() && tetromino.getMinoCentral().getY() + TILE == deadMino.getY()
+                    || tetromino.getMinoCentral().getX() - TILE == deadMino.getX() && tetromino.getMinoCentral().getY() + TILE == deadMino.getY()
+                )
+                {
+                    temp++;
+                }
+            }
+        }
+        return temp == 3 || temp == 4;
     }
 
     /**
@@ -293,6 +314,10 @@ public class SuperRotationSystem {
                         break;
                 }
             }
+        }
+
+        if (tSpin(tetromino) && tetromino.tetrominoID == 6){
+            Main.tspin.setOpacity(100);
         }
     }
 }

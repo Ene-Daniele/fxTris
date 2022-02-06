@@ -63,10 +63,34 @@ public class Matrix {
         addMino(tetromino.getMinoB());
         addMino(tetromino.getMinoC());
 
+        int temp = 0;
+
         for (int i = 0; i < matrixGrid.size(); i++){
             if (matrixGrid.get(i).size() == 10){
                 clearRow(i);
+                temp++;
             }
+        }
+
+        switch (temp){
+            case 1:
+                Main.clears.setText("Single");
+                Main.clears.setOpacity(100);
+                break;
+            case 2:
+                Main.clears.setText("Double");
+                Main.clears.setOpacity(100);
+                break;
+            case 3:
+                Main.clears.setText("Triple");
+                Main.clears.setOpacity(100);
+                break;
+            case 4:
+                Main.clears.setText("Tetris");
+                Main.clears.setOpacity(100);
+                break;
+            default:
+                //TODO Make a combo system that goes to zero in this default
         }
     }
 

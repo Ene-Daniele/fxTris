@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import static fxtris.Main.Main.currentTetromino;
 import static fxtris.Main.Others.GlobalValues.*;
+import static javafx.application.Application.getUserAgentStylesheet;
 
 /**
  * Main events happening during the game, and an array of variables relative to those
@@ -40,6 +41,8 @@ public class Events {
     public static boolean hardDropped = false;
     public static boolean hitWall = false;
     public static boolean restarted = false;
+    private static boolean placed = false;
+
 
     /**
      * Increases tempGRV by 1 and if its above GRAVITY (or GRAVITY / sdf if Keyboard.isSoftDrop) push the tetromino down by one tile and reset tempGRV
@@ -162,6 +165,22 @@ public class Events {
         shadow = new Tetromino(currentTetromino, Color.DARKSLATEGRAY);
 
         Queue.cycleList();
+
+        perfectClear();
+        placed = true;
+    }
+
+    public static void perfectClear(){
+        boolean temp = true;
+
+        for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
+            if (!i.isEmpty()){
+                temp = false;
+            }
+        }
+        if (temp && placed){
+            Main.perfectClear.setOpacity(100);
+        }
     }
 
     /**
