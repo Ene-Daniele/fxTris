@@ -2,6 +2,7 @@ package fxtris.Main.Controls;
 
 import fxtris.Main.GameEvents.Events;
 import fxtris.Main.Main;
+import fxtris.Main.Stages.GameStage;
 
 import static javafx.scene.input.KeyCode.ESCAPE;
 
@@ -9,7 +10,7 @@ public class Controller {
 
     public static void loadController(){
 
-        Main.scene.setOnKeyPressed(event -> {
+        GameStage.scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case RIGHT -> Keyboard.setRight(true);
                 case LEFT -> Keyboard.setLeft(true);
@@ -22,7 +23,7 @@ public class Controller {
                 case X -> Keyboard.setRestart(true);
             }
         });
-        Main.scene.setOnKeyReleased(event -> {
+        GameStage.scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
                 case RIGHT -> {
                     Keyboard.setRight(false);

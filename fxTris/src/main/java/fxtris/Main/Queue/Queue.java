@@ -2,6 +2,7 @@ package fxtris.Main.Queue;
 
 import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
+import fxtris.Main.Stages.GameStage;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,10 +34,10 @@ public class Queue {
         bag.getBag().remove(selectedMino);
 
         try {
-            Main.root.getChildren().add(list.get(list.size() - 2).getMinoCentral());
-            Main.root.getChildren().add(list.get(list.size() - 2).getMinoA());
-            Main.root.getChildren().add(list.get(list.size() - 2).getMinoB());
-            Main.root.getChildren().add(list.get(list.size() - 2).getMinoC());
+            GameStage.root.getChildren().add(list.get(list.size() - 2).getMinoCentral());
+            GameStage.root.getChildren().add(list.get(list.size() - 2).getMinoA());
+            GameStage.root.getChildren().add(list.get(list.size() - 2).getMinoB());
+            GameStage.root.getChildren().add(list.get(list.size() - 2).getMinoC());
         } catch (Exception ignored){}
 
         for (Tetromino i : list){
@@ -73,10 +74,10 @@ public class Queue {
             }
 
             try {
-                Main.root.getChildren().add(list.get(list.size() - 2).getMinoCentral());
-                Main.root.getChildren().add(list.get(list.size() - 2).getMinoA());
-                Main.root.getChildren().add(list.get(list.size() - 2).getMinoB());
-                Main.root.getChildren().add(list.get(list.size() - 2).getMinoC());
+                GameStage.root.getChildren().add(list.get(list.size() - 2).getMinoCentral());
+                GameStage.root.getChildren().add(list.get(list.size() - 2).getMinoA());
+                GameStage.root.getChildren().add(list.get(list.size() - 2).getMinoB());
+                GameStage.root.getChildren().add(list.get(list.size() - 2).getMinoC());
             } catch (Exception ignored){}
         }
 

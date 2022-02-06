@@ -5,6 +5,7 @@ import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
 import fxtris.Main.Queue.Bag;
 import fxtris.Main.Queue.Queue;
+import fxtris.Main.Stages.GameStage;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.input.MouseButton;
@@ -35,10 +36,10 @@ public class Matrix {
      * @param tetromino Tetrmonio being removed
      */
     public static void removeFromRoot(Tetromino tetromino){
-        Main.root.getChildren().remove(tetromino.getMinoCentral());
-        Main.root.getChildren().remove(tetromino.getMinoA());
-        Main.root.getChildren().remove(tetromino.getMinoB());
-        Main.root.getChildren().remove(tetromino.getMinoC());
+        GameStage.root.getChildren().remove(tetromino.getMinoCentral());
+        GameStage.root.getChildren().remove(tetromino.getMinoA());
+        GameStage.root.getChildren().remove(tetromino.getMinoB());
+        GameStage.root.getChildren().remove(tetromino.getMinoC());
     }
 
     /**
@@ -46,10 +47,10 @@ public class Matrix {
      * @param tetromino Tetromino being added
      */
     public static void addToRoot(Tetromino tetromino){
-        Main.root.getChildren().add(tetromino.getMinoCentral());
-        Main.root.getChildren().add(tetromino.getMinoA());
-        Main.root.getChildren().add(tetromino.getMinoB());
-        Main.root.getChildren().add(tetromino.getMinoC());
+        GameStage.root.getChildren().add(tetromino.getMinoCentral());
+        GameStage.root.getChildren().add(tetromino.getMinoA());
+        GameStage.root.getChildren().add(tetromino.getMinoB());
+        GameStage.root.getChildren().add(tetromino.getMinoC());
     }
 
     /**
@@ -74,20 +75,20 @@ public class Matrix {
 
         switch (temp){
             case 1:
-                Main.clears.setText("Single");
-                Main.clears.setOpacity(100);
+                GameStage.clears.setText("Single");
+                GameStage.clears.setOpacity(100);
                 break;
             case 2:
-                Main.clears.setText("Double");
-                Main.clears.setOpacity(100);
+                GameStage.clears.setText("Double");
+                GameStage.clears.setOpacity(100);
                 break;
             case 3:
-                Main.clears.setText("Triple");
-                Main.clears.setOpacity(100);
+                GameStage.clears.setText("Triple");
+                GameStage.clears.setOpacity(100);
                 break;
             case 4:
-                Main.clears.setText("Tetris");
-                Main.clears.setOpacity(100);
+                GameStage.clears.setText("Tetris");
+                GameStage.clears.setOpacity(100);
                 break;
             default:
                 //TODO Make a combo system that goes to zero in this default
@@ -102,7 +103,7 @@ public class Matrix {
         for (int i = 0; i < matrixGrid.size(); i++){
             if (mino.getY() == (i + 1) * TILE){
                 matrixGrid.get(i).add(mino);
-                Main.root.getChildren().add(mino);
+                GameStage.root.getChildren().add(mino);
             }
         }
     }
@@ -114,7 +115,7 @@ public class Matrix {
     private static void clearRow(int row){
 
         for (int j = 0; j < 10; j++){ //Removing from root
-            Main.root.getChildren().remove(matrixGrid.get(row).get(j));
+            GameStage.root.getChildren().remove(matrixGrid.get(row).get(j));
         }
         matrixGrid.remove(row);
         matrixGrid.add(0, new ArrayList<>());
@@ -139,7 +140,7 @@ public class Matrix {
         }
         for (ArrayList<Rectangle> i : matrixGrid) {
             for (Rectangle deadMino : i) {
-                Main.root.getChildren().remove(deadMino);
+                GameStage.root.getChildren().remove(deadMino);
             }
             i.clear();
         }

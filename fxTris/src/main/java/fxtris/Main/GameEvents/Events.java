@@ -5,6 +5,8 @@ import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
 import fxtris.Main.Others.Matrix;
 import fxtris.Main.Queue.Queue;
+import fxtris.Main.Stages.GameStage;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -179,7 +181,7 @@ public class Events {
             }
         }
         if (temp && placed){
-            Main.perfectClear.setOpacity(100);
+            GameStage.perfectClear.setOpacity(100);
         }
     }
 
@@ -207,7 +209,7 @@ public class Events {
             shadow.update();
         }
         //Add the shadow
-        if (!Main.root.getChildren().contains(shadow.getMinoCentral())){
+        if (!GameStage.root.getChildren().contains(shadow.getMinoCentral())){
             Matrix.addToRoot(shadow);
         }
         //Dont overwrite the tetromino with the shadow
@@ -443,5 +445,9 @@ public class Events {
         shadow = new Tetromino(currentTetromino, Color.DARKSLATEGRAY);
 
         Queue.cycleList();
+    }
+
+    public static void playSound(AudioClip sound){
+        sound.play();
     }
 }

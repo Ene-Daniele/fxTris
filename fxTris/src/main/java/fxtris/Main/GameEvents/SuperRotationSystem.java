@@ -3,6 +3,7 @@ package fxtris.Main.GameEvents;
 import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
 import fxtris.Main.Others.Matrix;
+import fxtris.Main.Stages.GameStage;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -317,7 +318,7 @@ public class SuperRotationSystem {
         }
 
         if (tSpin(tetromino) && tetromino.tetrominoID == 6){
-            Main.tspin.setOpacity(100);
+            GameStage.tspin.setOpacity(100);
         }
     }
 }
