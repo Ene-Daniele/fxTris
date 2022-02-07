@@ -53,8 +53,9 @@ public class Main extends Application {
 
                 if (currentTetromino.isActive()) {
 
-                    //TODO Add Levels and Combo
+                    //TODO Add levels and combo
                     //TODO Optimize and clean everything
+                    //TODO Add java docs for everything
 
                     swap();
                     gravity();
