@@ -111,9 +111,9 @@ public class SettingsStage {
         Tab gameplay = new Tab("Gameplay");
         gameplay.setClosable(false);
         gameplay.setContent(new VBox(
-                formatText(new Text("DAS:")),das,
-                formatText(new Text("ARR:")),arr,
-                formatText(new Text("SDF:")),sdf,
+                formatText(new Text("Delayed Auto Shift (DAS):")),das,
+                formatText(new Text("Automatic Repeat Rate (ARR):")),arr,
+                formatText(new Text("Soft Drop Factor (SDF):")),sdf,
                 confirm
         ));
 
