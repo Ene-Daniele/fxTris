@@ -1,48 +1,27 @@
 package fxtris.Main;
 
 import fxtris.Main.Controls.Controller;
-import fxtris.Main.Controls.Keyboard;
 import fxtris.Main.GameEvents.Events;
 import fxtris.Main.Minoes.Tetromino;
-import fxtris.Main.Minoes.Tetrominoes.I;
 import fxtris.Main.Minoes.Tetrominoes.S;
 import fxtris.Main.Others.Matrix;
 import fxtris.Main.Stages.GameStage;
-import fxtris.Main.Stages.Settings;
+import fxtris.Main.Stages.SettingsStage;
 import fxtris.Main.Queue.Queue;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import java.io.File;
-import java.security.MessageDigest;
-import java.util.ArrayList;
+import java.util.Set;
 
 import static fxtris.Main.GameEvents.Events.*;
-import static fxtris.Main.Others.GlobalValues.*;
 
 public class Main extends Application {
 
-    public static Settings settings;
+    public static SettingsStage settings;
 
     public static AnimationTimer frames;
 
@@ -51,14 +30,14 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        settings = new Settings();
-
         //!Make more of these for the sfx and pass the as parameter to the respective function
         AudioClip bgm = new AudioClip(this.getClass().getResource("/Audios/BGM.mp3").toString());
+        bgm.play();
 
         Controller.loadController();
         Matrix.loadMatrix();
         Queue.loadFirstQueue();
+        SettingsStage.loadSettings();
 
         //* Placeholder tetromino needed to start cycling through the queue, it will change as soon as handle() starts.
         currentTetromino = new S();
@@ -74,10 +53,8 @@ public class Main extends Application {
 
                 if (currentTetromino.isActive()) {
 
-                    //TODO Add UI stuff (score, last clear, b2b, etc)
-                    //TODO Add settings, and a serialized file to save them
-                    //TODO Add a leaderboard, and a serialized file to save it
-                    //TODO Add icon, BPM, and SFX
+                    //TODO Add Levels and Combo
+                    //TODO Optimize and clean everything
 
                     swap();
                     gravity();
@@ -92,16 +69,17 @@ public class Main extends Application {
                     fixOverlapBug(); //Corner collision bug, classic reoccurrence in every project of mine
                     restart();
 
-                    if (settings.isShowing()){
-                        Events.setTempGRV(0);
-                    }
                     if (!bgm.isPlaying() && GameStage.musicOn){
                         bgm.play();
+                    }
+                    if (SettingsStage.isShowing()){
+                        Events.setTempGRV(0);
                     }
 
                     GameStage.left.toFront();
                     GameStage.right.toFront();
                     GameStage.down.toFront();
+                    updateGraphics();
                 } else {
                     currentTetromino.update();
                     Tetromino temp = new Tetromino(currentTetromino, currentTetromino.getMinoCentral().getFill());/*
@@ -126,8 +104,7 @@ public class Main extends Application {
 
         frames.start();
 
-        //Sound togglers
-        //? I can make an ImageView in a static context, so i make it here instead
+        //? I cant make an ImageView in a static context, so i make it here instead
         ImageView musicIcon = new ImageView(new Image(this.getClass().getResource("/Images/musicIcon.png").toString()));
         musicIcon.setFitHeight(30);
         musicIcon.setPreserveRatio(true);
@@ -145,6 +122,13 @@ public class Main extends Application {
                 GameStage.musicOn = true;
                 GameStage.toggleMusic.setGraphic(musicIcon);
             }
+        });
+        ImageView settingsIcon = new ImageView(new Image(this.getClass().getResource("/Images/settingsIcon.png").toString()));
+        settingsIcon.setFitHeight(30);
+        settingsIcon.setPreserveRatio(true);
+        GameStage.toggleSettings.setGraphic(settingsIcon);
+        GameStage.toggleSettings.setOnMouseClicked(mouseEvent -> {
+            SettingsStage.openSettings();
         });
     }
 

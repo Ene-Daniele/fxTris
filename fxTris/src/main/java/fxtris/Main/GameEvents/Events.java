@@ -3,15 +3,18 @@ package fxtris.Main.GameEvents;
 import fxtris.Main.Controls.Keyboard;
 import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
+import fxtris.Main.Others.GlobalValues;
 import fxtris.Main.Others.Matrix;
 import fxtris.Main.Queue.Queue;
 import fxtris.Main.Stages.GameStage;
+import fxtris.Main.Stages.SettingsStage;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.lang.annotation.Documented;
 import java.util.ArrayList;
+import java.util.Set;
 
 import static fxtris.Main.Main.currentTetromino;
 import static fxtris.Main.Others.GlobalValues.*;
@@ -447,7 +450,59 @@ public class Events {
         Queue.cycleList();
     }
 
-    public static void playSound(AudioClip sound){
-        sound.play();
+    public static void updateGraphics(){
+        if (SettingsStage.connected.isSelected()){
+
+            for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
+                for (Rectangle deadMino : i) {
+                    deadMino.setStroke(deadMino.getFill());
+                }
+            }
+            currentTetromino.getMinoCentral().setStroke(currentTetromino.getMinoCentral().getFill());
+            currentTetromino.getMinoA().setStroke(currentTetromino.getMinoCentral().getFill());
+            currentTetromino.getMinoB().setStroke(currentTetromino.getMinoCentral().getFill());
+            currentTetromino.getMinoC().setStroke(currentTetromino.getMinoCentral().getFill());
+            try {
+                save.getMinoCentral().setStroke(hold.getMinoCentral().getFill());
+                save.getMinoA().setStroke(hold.getMinoCentral().getFill());
+                save.getMinoB().setStroke(hold.getMinoCentral().getFill());
+                save.getMinoC().setStroke(hold.getMinoCentral().getFill());
+            } catch (Exception e){}
+            for (Tetromino i : Queue.getList()){
+                i.getMinoCentral().setStroke(i.getMinoCentral().getFill());
+                i.getMinoA().setStroke(i.getMinoCentral().getFill());
+                i.getMinoB().setStroke(i.getMinoCentral().getFill());
+                i.getMinoC().setStroke(i.getMinoCentral().getFill());
+            }
+        } else {
+
+            for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
+                for (Rectangle deadMino : i) {
+                    deadMino.setStroke(Color.BLACK);
+                }
+            }
+            currentTetromino.getMinoCentral().setStroke(Color.BLACK);
+            currentTetromino.getMinoA().setStroke(Color.BLACK);
+            currentTetromino.getMinoB().setStroke(Color.BLACK);
+            currentTetromino.getMinoC().setStroke(Color.BLACK);
+            try {
+                save.getMinoCentral().setStroke(Color.BLACK);
+                save.getMinoA().setStroke(Color.BLACK);
+                save.getMinoB().setStroke(Color.BLACK);
+                save.getMinoC().setStroke(Color.BLACK);
+            } catch (Exception e){}
+            for (Tetromino i : Queue.getList()){
+                i.getMinoCentral().setStroke(Color.BLACK);
+                i.getMinoA().setStroke(Color.BLACK);
+                i.getMinoB().setStroke(Color.BLACK);
+                i.getMinoC().setStroke(Color.BLACK);
+            }
+        }
+    }
+
+    public static void updateSettings(int newDas, int newArr, int newSdf){
+        GlobalValues.setDas(newDas);
+        GlobalValues.setArr(newArr);
+        GlobalValues.setSdf(newSdf);
     }
 }

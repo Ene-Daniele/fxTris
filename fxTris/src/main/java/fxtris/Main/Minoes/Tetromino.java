@@ -3,6 +3,7 @@ package fxtris.Main.Minoes;
 import fxtris.Main.Minoes.Tetrominoes.*;
 import fxtris.Main.Others.Matrix;
 import fxtris.Main.GameEvents.SuperRotationSystem;
+import fxtris.Main.Stages.SettingsStage;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -118,10 +119,17 @@ public class Tetromino {
         minoCentral.setY(TILE * GROUND + (TILE * 3));
         minoCentral.setX(TILE * 20);
 
-        this.minoA.setStroke(Color.BLACK);
-        this.minoB.setStroke(Color.BLACK);
-        this.minoC.setStroke(Color.BLACK);
-        this.minoCentral.setStroke(Color.BLACK);
+        if (!SettingsStage.connected.isSelected()) {
+            this.minoA.setStroke(Color.BLACK);
+            this.minoB.setStroke(Color.BLACK);
+            this.minoC.setStroke(Color.BLACK);
+            this.minoCentral.setStroke(Color.BLACK);
+        } else {
+            this.minoA.setStroke(this.minoCentral.getFill());
+            this.minoB.setStroke(this.minoCentral.getFill());
+            this.minoC.setStroke(this.minoCentral.getFill());
+            this.minoCentral.setStroke(this.minoCentral.getFill());
+        }
     }
 
     public void rotationCCW(){

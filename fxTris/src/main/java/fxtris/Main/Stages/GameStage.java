@@ -3,15 +3,12 @@ package fxtris.Main.Stages;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import static fxtris.Main.Others.GlobalValues.*;
-import static fxtris.Main.Others.GlobalValues.TILE;
 
 public class GameStage {
 
@@ -28,9 +25,8 @@ public class GameStage {
     public static Line top = new Line(TILE * RIGHTWALL + (TILE * 6), TILE * 5, TILE, TILE * 5);
 
     public static Button toggleMusic = new Button();
+    public static Button toggleSettings = new Button();
     public static boolean musicOn = true;
-    public static Button toggleSfx = new Button();
-    private static boolean sfxOn = true;
 
     /**
      *
@@ -75,15 +71,8 @@ public class GameStage {
         nexttxt.setY(100);
         nexttxt.setFont(Font.font(40));
 
-        Text settingstxt = new Text("To open settings press CTRL");
-        settingstxt.setX(180);
-        settingstxt.setY(780);
-        settingstxt.setFont(Font.font(20));
-        settingstxt.setFill(Color.WHITE);
-
         root.getChildren().add(holdtxt);
         root.getChildren().add(nexttxt);
-        root.getChildren().add(settingstxt);
         root.getChildren().add(clears);
         root.getChildren().add(tspin);
         root.getChildren().add(perfectClear);
@@ -99,6 +88,12 @@ public class GameStage {
         toggleMusic.setPrefSize(30, 30);
         toggleMusic.setFocusTraversable(false);
         GameStage.root.getChildren().add(toggleMusic);
+        toggleSettings.setStyle("-fx-background-color: #000000;");
+        toggleSettings.setTranslateX(490);
+        toggleSettings.setTranslateY(680);
+        toggleSettings.setPrefSize(30, 30);
+        toggleSettings.setFocusTraversable(false);
+        GameStage.root.getChildren().add(toggleSettings);
 
         return scene;
     }
