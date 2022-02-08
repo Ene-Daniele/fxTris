@@ -1,6 +1,5 @@
 package fxtris.Main.GameEvents;
 
-import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
 import fxtris.Main.Others.Matrix;
 import fxtris.Main.Stages.GameStage;
@@ -9,12 +8,13 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 
 import static fxtris.Main.Others.GlobalValues.*;
-import static fxtris.Main.Others.GlobalValues.TILE;
 
 public class SuperRotationSystem {
 
+    public static boolean tspinning = false;
+
     /**
-     *
+     * Checks if 2 Minos are intersecting
      * @param mino1 Current dead mino being checked
      * @param mino2 Mino from the current tetromino
      * @return if they intersect or not
@@ -24,11 +24,11 @@ public class SuperRotationSystem {
     }
 
     /**
-     *
+     * Checks if a tetromino can rotate
      * @param tetromino Tetromino being checked
      * @return if the tetromino can rotate
      */
-    private static boolean canRotate(Tetromino tetromino){
+    private static boolean cannotRotate(Tetromino tetromino){
         boolean temp = true;
         for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
             for (Rectangle deadMino : i) {
@@ -62,23 +62,28 @@ public class SuperRotationSystem {
         {
             temp = false;
         }
-        return temp;
+        return !temp;
     }
 
     /**
-     *
+     * Moves the tetromino in a determined offset from the current position
      * @param tetromino Tetromino to offset
      * @param x offset X
      * @param y offset Y
      */
     private static void offset(Tetromino tetromino, int x, int y){
-        if (!canRotate(tetromino)) {
+        if (cannotRotate(tetromino)) {
             tetromino.getMinoCentral().setX(tetromino.getMinoCentral().getX() + (x * TILE));
             tetromino.getMinoCentral().setY(tetromino.getMinoCentral().getY() + (y * TILE));
             tetromino.update();
         }
     }
 
+    /**
+     * Checks if a T-Spin occurs
+     * @param tetromino Tetromino being checked
+     * @return If there is a T-Spin
+     */
     private static boolean tSpin(Tetromino tetromino){
 
         int temp = 0;
@@ -100,7 +105,7 @@ public class SuperRotationSystem {
     }
 
     /**
-     *
+     * Main function of the SuperRotationSystem class, it handles everything from assigning new rotation indexes, performing the different offset checks, and resetting the tetromino's position if the rotation fails
      * @param tetromino Tetromino being rotated
      * @param newId Rotation id that the tetromino rotates to
      */
@@ -117,100 +122,100 @@ public class SuperRotationSystem {
 
             if (oldIndex < tetromino.getRotationIndex() || (oldIndex == 4 && tetromino.getRotationIndex() == 1)){
                 //!CLOCKWISE
-                switch (tetromino.getRotationIndex()){
-                    case 1: //* West to North
-                        offset(tetromino, -1,  0);
-                        offset(tetromino, 0,  1);
+                switch (tetromino.getRotationIndex()) {
+                    case 1 -> { //* West to North
+                        offset(tetromino, -1, 0);
+                        offset(tetromino, 0, 1);
                         offset(tetromino, 1, -3);
-                        offset(tetromino, -1,  0);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, -1, 0);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, 1, 2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 2: //* North to East
-                        offset(tetromino, -1,  0);
-                        offset(tetromino, 0,  -1);
+                    }
+                    case 2 -> { //* North to East
+                        offset(tetromino, -1, 0);
+                        offset(tetromino, 0, -1);
                         offset(tetromino, 1, 3);
-                        offset(tetromino, -1,  0);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, -1, 0);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, 1, -2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 3: //* East to South
-                        offset(tetromino, 1,  0);
-                        offset(tetromino, 0,  1);
+                    }
+                    case 3 -> { //* East to South
+                        offset(tetromino, 1, 0);
+                        offset(tetromino, 0, 1);
                         offset(tetromino, -1, -3);
-                        offset(tetromino, 1,  0);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, 1, 0);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, -1, 2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 4: //* South to West
-                        offset(tetromino, 1,  0);
-                        offset(tetromino, 0,  -1);
+                    }
+                    case 4 -> { //* South to West
+                        offset(tetromino, 1, 0);
+                        offset(tetromino, 0, -1);
                         offset(tetromino, -1, 3);
-                        offset(tetromino, 1,  0);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, 1, 0);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, -1, -2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
+                    }
                 }
             }
             else {
                 //!COUNTERCLOCKWISE
-                switch (tetromino.getRotationIndex()){
-                    case 1: //* East to North
-                        offset(tetromino, 1,  0);
-                        offset(tetromino, 0,  1);
+                switch (tetromino.getRotationIndex()) {
+                    case 1 -> { //* East to North
+                        offset(tetromino, 1, 0);
+                        offset(tetromino, 0, 1);
                         offset(tetromino, -1, -3);
-                        offset(tetromino, 1,  0);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, 1, 0);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, -1, 2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 2: //* North to West
-                        offset(tetromino, 1,  0);
-                        offset(tetromino, 0,  -1);
+                    }
+                    case 2 -> { //* North to West
+                        offset(tetromino, 1, 0);
+                        offset(tetromino, 0, -1);
                         offset(tetromino, -1, 3);
-                        offset(tetromino, 1,  0);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, 1, 0);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, -1, -2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 3: //* West to South
-                        offset(tetromino, -1,  0);
-                        offset(tetromino, 0,  1);
+                    }
+                    case 3 -> { //* West to South
+                        offset(tetromino, -1, 0);
+                        offset(tetromino, 0, 1);
                         offset(tetromino, 1, -3);
-                        offset(tetromino, -1,  0);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, -1, 0);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, 1, 2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 4: //* South to East
-                        offset(tetromino, -1,  0);
-                        offset(tetromino, 0,  -1);
+                    }
+                    case 4 -> { //* South to East
+                        offset(tetromino, -1, 0);
+                        offset(tetromino, 0, -1);
                         offset(tetromino, 1, 3);
-                        offset(tetromino, -1,  0);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, -1, 0);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, 1, -2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
+                    }
                 }
             }
 
@@ -219,106 +224,107 @@ public class SuperRotationSystem {
             if ((oldIndex < tetromino.getRotationIndex() || (oldIndex == 4 && tetromino.getRotationIndex() == 1))
             && !(oldIndex == 1 && tetromino.getRotationIndex() == 4)){
                 //!CLOCKWISE
-                switch (tetromino.getRotationIndex()){
-                    case 1:
-                        offset(tetromino, 1,  0);
-                        offset(tetromino, -3,  0);
+                switch (tetromino.getRotationIndex()) {
+                    case 1 -> {
+                        offset(tetromino, 1, 0);
+                        offset(tetromino, -3, 0);
                         offset(tetromino, 3, 2);
-                        offset(tetromino, -3,  -3);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, -3, -3);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, 2, 1);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 2:
-                        offset(tetromino, -2,  0);
-                        offset(tetromino, 3,  0);
+                    }
+                    case 2 -> {
+                        offset(tetromino, -2, 0);
+                        offset(tetromino, 3, 0);
                         offset(tetromino, -3, 1);
-                        offset(tetromino, 3,  -3);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, 3, -3);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, -1, 2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 3:
-                        offset(tetromino, -1,  0);
-                        offset(tetromino, 3,  0);
+                    }
+                    case 3 -> {
+                        offset(tetromino, -1, 0);
+                        offset(tetromino, 3, 0);
                         offset(tetromino, -3, -2);
-                        offset(tetromino, 3,  3);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, 3, 3);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, -2, -1);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 4:
-                        offset(tetromino, 2,  0);
-                        offset(tetromino, -3,  0);
+                    }
+                    case 4 -> {
+                        offset(tetromino, 2, 0);
+                        offset(tetromino, -3, 0);
                         offset(tetromino, 3, -1);
-                        offset(tetromino, -3,  3);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, -3, 3);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, 1, -2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
+                    }
                 }
             }
             else {
                 //!COUNTERCLOCKWISE
-                switch (tetromino.getRotationIndex()){
-                    case 1:
-                        offset(tetromino, 2,  0);
-                        offset(tetromino, -3,  0);
+                switch (tetromino.getRotationIndex()) {
+                    case 1 -> {
+                        offset(tetromino, 2, 0);
+                        offset(tetromino, -3, 0);
                         offset(tetromino, 3, -1);
-                        offset(tetromino, -3,  3);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, -3, 3);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, 1, -2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 2:
-                        offset(tetromino, -1,  0);
-                        offset(tetromino, 3,  0);
+                    }
+                    case 2 -> {
+                        offset(tetromino, -1, 0);
+                        offset(tetromino, 3, 0);
                         offset(tetromino, -3, -2);
-                        offset(tetromino, 3,  3);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, 3, 3);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, -2, -1);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 3:
-                        offset(tetromino, -2,  0);
-                        offset(tetromino, 3,  0);
+                    }
+                    case 3 -> {
+                        offset(tetromino, -2, 0);
+                        offset(tetromino, 3, 0);
                         offset(tetromino, -3, 1);
-                        offset(tetromino, 3,  -3);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, 3, -3);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, -1, 2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
-                    case 4:
-                        offset(tetromino, 1,  0);
-                        offset(tetromino, -3,  0);
+                    }
+                    case 4 -> {
+                        offset(tetromino, 1, 0);
+                        offset(tetromino, -3, 0);
                         offset(tetromino, 3, -1);
-                        offset(tetromino, -3,  -3);
-                        if (!canRotate(tetromino)){
+                        offset(tetromino, -3, -3);
+                        if (cannotRotate(tetromino)) {
                             offset(tetromino, 2, -2);
                             tetromino.setRotationIndex(oldIndex);
                             tetromino.update();
                         }
-                        break;
+                    }
                 }
             }
         }
 
         if (tSpin(tetromino) && tetromino.tetrominoID == 6){
             GameStage.tspin.setOpacity(100);
+            tspinning = true;
         }
     }
 }

@@ -1,11 +1,16 @@
 package fxtris.Main.Controls;
 
 import fxtris.Main.GameEvents.Events;
-import fxtris.Main.Main;
 import fxtris.Main.Stages.GameStage;
 
+/**
+ * The class that handles key presses and controls
+ */
 public class Controller {
 
+    /**
+     * Assigns OnKeyPressed events to the scenes
+     */
     public static void loadController(){
 
         GameStage.scene.setOnKeyPressed(event -> {

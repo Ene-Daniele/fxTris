@@ -1,7 +1,7 @@
 package fxtris.Main.Controls;
 
 /**
- * Class of static variables that handles keyboard activity
+ * Class of static variables that monitors keyboard activity
  */
 public class Keyboard {
     private static boolean left = false;

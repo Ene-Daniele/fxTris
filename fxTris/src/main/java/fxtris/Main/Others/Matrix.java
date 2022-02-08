@@ -1,29 +1,28 @@
 package fxtris.Main.Others;
 
 import fxtris.Main.GameEvents.Events;
-import fxtris.Main.Main;
+import fxtris.Main.GameEvents.SuperRotationSystem;
 import fxtris.Main.Minoes.Tetromino;
-import fxtris.Main.Queue.Bag;
 import fxtris.Main.Queue.Queue;
 import fxtris.Main.Stages.GameStage;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.scene.input.MouseButton;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
 import static fxtris.Main.Others.GlobalValues.TILE;
-import static fxtris.Main.Others.GlobalValues.setArr;
 
+/**
+ * Class that handles the matrix
+ */
 public class Matrix {
 
-    private static ArrayList <ArrayList<Rectangle>> matrixGrid = new ArrayList<>();
+    private static final ArrayList <ArrayList<Rectangle>> matrixGrid = new ArrayList<>();
 
     public static ArrayList<ArrayList<Rectangle>> getMatrixGrid() {
         return matrixGrid;
     }
+
+    public static int score = 0;
 
     public static void loadMatrix(){
         for (int i = 0; i < 25; i++){
@@ -73,25 +72,46 @@ public class Matrix {
             }
         }
 
-        switch (temp){
-            case 1:
+        switch (temp) {
+            case 1 -> {
                 GameStage.clears.setText("Single");
                 GameStage.clears.setOpacity(100);
-                break;
-            case 2:
+                if (!SuperRotationSystem.tspinning) {
+                    score += 40;
+                } else {
+                    score += 800;
+                    SuperRotationSystem.tspinning = false;
+                }
+                GameStage.scoretxt.setText(String.valueOf(score));
+            }
+            case 2 -> {
                 GameStage.clears.setText("Double");
                 GameStage.clears.setOpacity(100);
-                break;
-            case 3:
+                if (!SuperRotationSystem.tspinning) {
+                    score += 100;
+                } else {
+                    score += 1200;
+                    SuperRotationSystem.tspinning = false;
+                }
+                GameStage.scoretxt.setText(String.valueOf(score));
+            }
+            case 3 -> {
                 GameStage.clears.setText("Triple");
                 GameStage.clears.setOpacity(100);
-                break;
-            case 4:
+                if (!SuperRotationSystem.tspinning) {
+                    score += 300;
+                } else {
+                    score += 1600;
+                    SuperRotationSystem.tspinning = false;
+                }
+                GameStage.scoretxt.setText(String.valueOf(score));
+            }
+            case 4 -> {
                 GameStage.clears.setText("Tetris");
                 GameStage.clears.setOpacity(100);
-                break;
-            default:
-                //TODO Make a combo system that goes to zero in this default
+                score += 1200;
+                GameStage.scoretxt.setText(String.valueOf(score));
+            }
         }
     }
 
@@ -121,11 +141,9 @@ public class Matrix {
         matrixGrid.add(0, new ArrayList<>());
 
         for (int i = row; i > -1; i--){
-            for (int j = 0; j < 10; j++){
+            for (int j = 0; j < matrixGrid.get(i).size(); j++){
 
-                try {
-                    matrixGrid.get(i).get(j).setY((i + 1) * TILE);
-                } catch (IndexOutOfBoundsException e){}
+                matrixGrid.get(i).get(j).setY((i + 1) * TILE);
             }
         }
     }
@@ -134,6 +152,9 @@ public class Matrix {
      * Resets matrix, queue, held tetromino, and bag
      */
     public static void reset(){
+
+        score = 0;
+        GameStage.scoretxt.setText(String.valueOf(score));
 
         for (Tetromino i : Queue.getList()){
             removeFromRoot(i);

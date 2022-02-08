@@ -1,22 +1,20 @@
 package fxtris.Main.Minoes;
 
+import fxtris.Main.GameEvents.SuperRotationSystem;
 import fxtris.Main.Minoes.Tetrominoes.*;
 import fxtris.Main.Others.Matrix;
-import fxtris.Main.GameEvents.SuperRotationSystem;
-import fxtris.Main.Stages.SettingsStage;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-import static fxtris.Main.Others.GlobalValues.*;
+import static fxtris.Main.Others.GlobalValues.GROUND;
+import static fxtris.Main.Others.GlobalValues.TILE;
 
 public class Tetromino {
 
-    protected Color color;
     protected int rotationIndex;
-
     public void setRotationIndex(int rotationIndex) {
         this.rotationIndex = rotationIndex;
     }
@@ -25,17 +23,12 @@ public class Tetromino {
     }
 
     protected int lastIndex = 1;
-
-    public int getLastIndex() {
-        return lastIndex;
-    }
     public void setLastIndex(int lastIndex) {
         this.lastIndex = lastIndex;
     }
 
     protected boolean active;
     private boolean collided;
-
     public int tetrominoID;
 
     public boolean isCollided() {
@@ -73,6 +66,10 @@ public class Tetromino {
 
     public Tetromino(){}
 
+    /**
+     * Paints the tetromino
+     * @param color Color to paint
+     */
     public void paint(Paint color){
 
         this.getMinoCentral().setFill(color);
@@ -107,6 +104,9 @@ public class Tetromino {
         this.fourSlide = fourSlide;
     }
 
+    /**
+     * Tetromino constructor, mostly used in the sub classes
+     */
     public Tetromino(Color color){
         this.rotationIndex = 1;
         this.collided = false;
@@ -116,22 +116,14 @@ public class Tetromino {
         this.minoC = new Rectangle(TILE, TILE, color);
         this.minoCentral = new Rectangle(TILE, TILE, color);
 
+        //Position in the bottom of the queue
         minoCentral.setY(TILE * GROUND + (TILE * 3));
         minoCentral.setX(TILE * 20);
-
-        if (!SettingsStage.connected.isSelected()) {
-            this.minoA.setStroke(Color.BLACK);
-            this.minoB.setStroke(Color.BLACK);
-            this.minoC.setStroke(Color.BLACK);
-            this.minoCentral.setStroke(Color.BLACK);
-        } else {
-            this.minoA.setStroke(this.minoCentral.getFill());
-            this.minoB.setStroke(this.minoCentral.getFill());
-            this.minoC.setStroke(this.minoCentral.getFill());
-            this.minoCentral.setStroke(this.minoCentral.getFill());
-        }
     }
 
+    /**
+     * Calls the rotation() function giving the new rotation index calculated from decreasing the current rotation index
+     */
     public void rotationCCW(){
         int temp = this.rotationIndex;
         temp--;
@@ -140,6 +132,10 @@ public class Tetromino {
         }
         SuperRotationSystem.rotation(this, temp);
     }
+
+    /**
+     * Calls the rotation() function giving the new rotation index calculated from increasing the current rotation index
+     */
     public void rotationCW(){
         int temp = this.rotationIndex;
         temp++;
@@ -148,6 +144,10 @@ public class Tetromino {
         }
         SuperRotationSystem.rotation(this, temp);
     }
+
+    /**
+     * Calls the rotation() function giving the new rotation index calculated from increasing or decreasing the current rotation index
+     */
     public void rotation180(){
         int temp = this.rotationIndex;
 
@@ -166,40 +166,34 @@ public class Tetromino {
      * @return A new object based on the tetromino's ID
      */
     public static Tetromino getID(Tetromino tetromino){
-        Tetromino temp = null;
 
-        switch (tetromino.tetrominoID){
-            case 1:
-                temp = new I();
-                break;
-            case 2:
-                temp = new J();
-                break;
-            case 3:
-                temp = new L();
-                break;
-            case 4:
-                temp = new O();
-                break;
-            case 5:
-                temp = new S();
-                break;
-            case 6:
-                temp = new T();
-                break;
-            case 7:
-                temp = new Z();
-                break;
-        }
-        return temp;
+        return switch (tetromino.tetrominoID) {
+            case 1 -> new I();
+            case 2 -> new J();
+            case 3 -> new L();
+            case 4 -> new O();
+            case 5 -> new S();
+            case 6 -> new T();
+            case 7 -> new Z();
+            default -> null;
+        };
     }
 
+    /**
+     * Checks if a mino is about to intersect with another mino
+     * @param mino Active mino
+     * @param deadMino Dead Mino
+     * @return If they are about to intersect vertically
+     */
     private boolean generalCollision(Rectangle mino, Rectangle deadMino){
         return
                 mino.getY() + TILE == deadMino.getY()
                 && mino.getX() == deadMino.getX();
     }
 
+    /**
+     * @return If the current tetromino is colliding vertically
+     */
     public boolean verticalCollision(){
         boolean temp = false;
 
@@ -228,7 +222,10 @@ public class Tetromino {
         return temp;
     }
 
-
+    /**
+     * @param sign The direction it should check
+     * @return If the current tetromino is about to collide in the specified direction
+     */
     public boolean horizontalCollision(int sign){
         boolean temp = true;
         for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
@@ -251,7 +248,10 @@ public class Tetromino {
         return temp;
     }
 
-    private final boolean groundCheck(){
+    /**
+     * @return If the current tetromino is about to collide with the ground
+     */
+    private boolean groundCheck(){
         return this.minoCentral.getY() + TILE == GROUND * TILE
                 || this.minoA.getY() + TILE == GROUND * TILE
                 || this.minoB.getY() + TILE == GROUND * TILE
@@ -263,9 +263,16 @@ public class Tetromino {
      */
     public void update(){/* Override in subclasses */}
 
+    /**
+     * @return If the current tetromino is an I
+     */
     public boolean isI(){
         return false;
     }
+
+    /**
+     * @return If the current tetromino is an I
+     */
     public boolean isO(){
         return false;
     }

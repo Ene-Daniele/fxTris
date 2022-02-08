@@ -18,6 +18,7 @@ public class GameStage {
     public static Text clears = new Text("Tetris");
     public static Text tspin = new Text("T-Spin");
     public static Text perfectClear = new Text("Perfect\n  Clear");
+    public static Text scoretxt = new Text("0");
 
     public static Line left = new Line(TILE * LEFTWALL + TILE, TILE * 5, TILE * LEFTWALL + TILE, GROUND * TILE);
     public static Line right = new Line(TILE * RIGHTWALL, TILE * 5, TILE * RIGHTWALL, TILE * GROUND);
@@ -38,6 +39,10 @@ public class GameStage {
         root.getChildren().add(line);
     }
 
+    /**
+     * Creates the scene then returns it
+     * @return A formatted scene
+     */
     public static Scene getTheScene(){
 
         tspin.setFill(Color.WHITE);
@@ -95,6 +100,11 @@ public class GameStage {
         toggleSettings.setFocusTraversable(false);
         GameStage.root.getChildren().add(toggleSettings);
 
+        scoretxt.setFont(Font.font(40));
+        scoretxt.setFill(Color.WHITE);
+        scoretxt.setX(275);
+        scoretxt.setY(700);
+        root.getChildren().add(scoretxt);
         return scene;
     }
 }

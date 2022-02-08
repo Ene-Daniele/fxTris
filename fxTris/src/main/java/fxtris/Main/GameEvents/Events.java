@@ -1,24 +1,19 @@
 package fxtris.Main.GameEvents;
 
 import fxtris.Main.Controls.Keyboard;
-import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
 import fxtris.Main.Others.GlobalValues;
 import fxtris.Main.Others.Matrix;
 import fxtris.Main.Queue.Queue;
 import fxtris.Main.Stages.GameStage;
 import fxtris.Main.Stages.SettingsStage;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.lang.annotation.Documented;
 import java.util.ArrayList;
-import java.util.Set;
 
 import static fxtris.Main.Main.currentTetromino;
 import static fxtris.Main.Others.GlobalValues.*;
-import static javafx.application.Application.getUserAgentStylesheet;
 
 /**
  * Main events happening during the game, and an array of variables relative to those
@@ -47,6 +42,7 @@ public class Events {
     public static boolean hitWall = false;
     public static boolean restarted = false;
     private static boolean placed = false;
+
 
 
     /**
@@ -112,13 +108,6 @@ public class Events {
                         shadow.update();
                         Matrix.addToRoot(currentTetromino);
 
-                        Matrix.removeFromRoot(save);
-                        save = Tetromino.getID(hold);
-                        save.getMinoCentral().setX(TILE * 3);
-                        save.getMinoCentral().setY(TILE * 7);
-                        save.paint(hold.getMinoCentral().getFill());
-                        save.update();
-                        Matrix.addToRoot(save);
                     } else {
                         hold = Tetromino.getID(currentTetromino);
                         Matrix.removeFromRoot(currentTetromino);
@@ -132,14 +121,14 @@ public class Events {
                         Queue.cycleList();
                         firstSwap = false;
 
-                        Matrix.removeFromRoot(save);
-                        save = Tetromino.getID(hold);
-                        save.getMinoCentral().setX(TILE * 3);
-                        save.getMinoCentral().setY(TILE * 7);
-                        save.paint(hold.getMinoCentral().getFill());
-                        save.update();
-                        Matrix.addToRoot(save);
                     }
+                    Matrix.removeFromRoot(save);
+                    save = Tetromino.getID(hold);
+                    save.getMinoCentral().setX(TILE * 3);
+                    save.getMinoCentral().setY(TILE * 7);
+                    save.paint(hold.getMinoCentral().getFill());
+                    save.update();
+                    Matrix.addToRoot(save);
                     swapped = true;
                 }
             }
@@ -179,12 +168,15 @@ public class Events {
         boolean temp = true;
 
         for (ArrayList<Rectangle> i : Matrix.getMatrixGrid()) {
-            if (!i.isEmpty()){
+            if (!i.isEmpty()) {
                 temp = false;
+                break;
             }
         }
         if (temp && placed){
             GameStage.perfectClear.setOpacity(100);
+            Matrix.score += 3500;
+            GameStage.scoretxt.setText(String.valueOf(Matrix.score));
         }
     }
 
@@ -415,18 +407,11 @@ public class Events {
      * @return If the given tetromino is causing a top out
      */
     public static boolean topOut(Tetromino currentTetromino){
-        boolean temp = false;
-        if
-        ((
-            currentTetromino.getMinoCentral().getY() < CEILING * TILE
-            && currentTetromino.getMinoA().getY() < CEILING * TILE
-            && currentTetromino.getMinoB().getY() < CEILING * TILE
-            && currentTetromino.getMinoC().getY() < CEILING * TILE
-        ) && !(Matrix.getMatrixGrid().get(Matrix.getMatrixGrid().size() - 2)).isEmpty())
-        {
-            temp = true;
-        }
-        return temp;
+        return (currentTetromino.getMinoCentral().getY() < CEILING * TILE
+                        && currentTetromino.getMinoA().getY() < CEILING * TILE
+                        && currentTetromino.getMinoB().getY() < CEILING * TILE
+                        && currentTetromino.getMinoC().getY() < CEILING * TILE
+        ) && !(Matrix.getMatrixGrid().get(Matrix.getMatrixGrid().size() - 2)).isEmpty();
     }
 
     /**
@@ -450,6 +435,9 @@ public class Events {
         Queue.cycleList();
     }
 
+    /**
+     * Needed to update if connected skin is selected or not
+     */
     public static void updateGraphics(){
         if (SettingsStage.connected.isSelected()){
 
@@ -467,7 +455,7 @@ public class Events {
                 save.getMinoA().setStroke(hold.getMinoCentral().getFill());
                 save.getMinoB().setStroke(hold.getMinoCentral().getFill());
                 save.getMinoC().setStroke(hold.getMinoCentral().getFill());
-            } catch (Exception e){}
+            } catch (Exception ignored){}
             for (Tetromino i : Queue.getList()){
                 i.getMinoCentral().setStroke(i.getMinoCentral().getFill());
                 i.getMinoA().setStroke(i.getMinoCentral().getFill());
@@ -490,7 +478,7 @@ public class Events {
                 save.getMinoA().setStroke(Color.BLACK);
                 save.getMinoB().setStroke(Color.BLACK);
                 save.getMinoC().setStroke(Color.BLACK);
-            } catch (Exception e){}
+            } catch (Exception ignored){}
             for (Tetromino i : Queue.getList()){
                 i.getMinoCentral().setStroke(Color.BLACK);
                 i.getMinoA().setStroke(Color.BLACK);
@@ -500,6 +488,12 @@ public class Events {
         }
     }
 
+    /**
+     * Updates the global values to match the desired settings
+     * @param newDas new Delayed Auto Shift
+     * @param newArr new Auto Repeat Rate
+     * @param newSdf new Soft Drop Factor
+     */
     public static void updateSettings(int newDas, int newArr, int newSdf){
         GlobalValues.setDas(newDas);
         GlobalValues.setArr(newArr);

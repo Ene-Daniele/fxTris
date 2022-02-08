@@ -5,9 +5,9 @@ import fxtris.Main.GameEvents.Events;
 import fxtris.Main.Minoes.Tetromino;
 import fxtris.Main.Minoes.Tetrominoes.S;
 import fxtris.Main.Others.Matrix;
+import fxtris.Main.Queue.Queue;
 import fxtris.Main.Stages.GameStage;
 import fxtris.Main.Stages.SettingsStage;
-import fxtris.Main.Queue.Queue;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -15,13 +15,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
-import java.util.Set;
+import java.util.Objects;
 
 import static fxtris.Main.GameEvents.Events.*;
 
 public class Main extends Application {
-
-    public static SettingsStage settings;
 
     public static AnimationTimer frames;
 
@@ -31,7 +29,7 @@ public class Main extends Application {
     public void start(Stage stage) {
 
         //!Make more of these for the sfx and pass the as parameter to the respective function
-        AudioClip bgm = new AudioClip(this.getClass().getResource("/Audios/BGM.mp3").toString());
+        AudioClip bgm = new AudioClip(Objects.requireNonNull(this.getClass().getResource("/Audios/BGM.mp3")).toString());
         bgm.play();
 
         Controller.loadController();
@@ -42,7 +40,7 @@ public class Main extends Application {
         //* Placeholder tetromino needed to start cycling through the queue, it will change as soon as handle() starts.
         currentTetromino = new S();
 
-        frames = new AnimationTimer() { //AnimationTimer my beloved <3
+        frames = new AnimationTimer() {
 
             @Override
             public void handle(long l) {
@@ -52,10 +50,6 @@ public class Main extends Application {
                 GameStage.perfectClear.setOpacity(GameStage.perfectClear.getOpacity() - GameStage.perfectClear.getOpacity() / 10);
 
                 if (currentTetromino.isActive()) {
-
-                    //TODO Add levels and combo
-                    //TODO Optimize and clean everything
-                    //TODO Add java docs for everything
 
                     swap();
                     gravity();
@@ -70,10 +64,10 @@ public class Main extends Application {
                     fixOverlapBug(); //Corner collision bug, classic reoccurrence in every project of mine
                     restart();
 
-                    if (!bgm.isPlaying() && GameStage.musicOn){
+                    if (!bgm.isPlaying() && GameStage.musicOn){ //Loops the music
                         bgm.play();
                     }
-                    if (SettingsStage.isShowing()){
+                    if (SettingsStage.isShowing()){ //Pauses the game
                         Events.setTempGRV(0);
                     }
 
@@ -85,8 +79,8 @@ public class Main extends Application {
                     currentTetromino.update();
                     Tetromino temp = new Tetromino(currentTetromino, currentTetromino.getMinoCentral().getFill());/*
                         ? I needed a temp for this because the current tetromino wasnt getting deleted,
-                        ? so i do it after i add it to the matrix, and use a temp to verify the topOut condition*/
-
+                        ? so i do it after i add it to the matrix, and use a temp to verify the topOut conditio
+                        */
                     placeTetromino();
 
                     if (topOut(temp)){
@@ -106,10 +100,10 @@ public class Main extends Application {
         frames.start();
 
         //? I cant make an ImageView in a static context, so i make it here instead
-        ImageView musicIcon = new ImageView(new Image(this.getClass().getResource("/Images/musicIcon.png").toString()));
+        ImageView musicIcon = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("/Images/musicIcon.png")).toString()));
         musicIcon.setFitHeight(30);
         musicIcon.setPreserveRatio(true);
-        ImageView musicIconOff = new ImageView(new Image(this.getClass().getResource("/Images/musicIconOff.png").toString()));
+        ImageView musicIconOff = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("/Images/musicIconOff.png")).toString()));
         musicIconOff.setFitHeight(30);
         musicIconOff.setPreserveRatio(true);
         GameStage.toggleMusic.setGraphic(musicIcon);
@@ -124,16 +118,17 @@ public class Main extends Application {
                 GameStage.toggleMusic.setGraphic(musicIcon);
             }
         });
-        ImageView settingsIcon = new ImageView(new Image(this.getClass().getResource("/Images/settingsIcon.png").toString()));
+        ImageView settingsIcon = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("/Images/settingsIcon.png")).toString()));
         settingsIcon.setFitHeight(30);
         settingsIcon.setPreserveRatio(true);
         GameStage.toggleSettings.setGraphic(settingsIcon);
-        GameStage.toggleSettings.setOnMouseClicked(mouseEvent -> {
-            SettingsStage.openSettings();
-        });
+        GameStage.toggleSettings.setOnMouseClicked(mouseEvent -> SettingsStage.openSettings());
     }
 
     public static void main(String[] args) {
         launch();
     }
 }
+/*
+ ! <Ev/>
+ */

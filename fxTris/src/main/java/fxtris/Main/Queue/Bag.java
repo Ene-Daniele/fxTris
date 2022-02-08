@@ -5,6 +5,9 @@ import fxtris.Main.Minoes.Tetrominoes.*;
 
 import java.util.ArrayList;
 
+/**
+ * Class that generates new bags of tetrominoes
+ */
 public class Bag {
 
     private final ArrayList <Tetromino> bag;

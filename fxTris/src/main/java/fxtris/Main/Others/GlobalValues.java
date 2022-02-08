@@ -1,5 +1,8 @@
 package fxtris.Main.Others;
 
+/**
+ * A class that contains global values, used everywhere
+ */
 public class GlobalValues {
 
     private static int das = 6; //Frames before the mino starts dasing

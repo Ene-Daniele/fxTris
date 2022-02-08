@@ -1,6 +1,5 @@
 package fxtris.Main.Queue;
 
-import fxtris.Main.Main;
 import fxtris.Main.Minoes.Tetromino;
 import fxtris.Main.Stages.GameStage;
 
@@ -9,15 +8,15 @@ import java.util.Random;
 
 import static fxtris.Main.Others.GlobalValues.TILE;
 
+/**
+ * CLass that handles the queue
+ */
 public class Queue {
 
-    private static ArrayList <Tetromino> list = new ArrayList<>(7);
+    private static final ArrayList <Tetromino> list = new ArrayList<>(7);
     private static Bag bag = new Bag();
-    public static void setBag(Bag bag) {
-        Queue.bag = bag;
-    }
 
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     public static ArrayList<Tetromino> getList() {
         return list;

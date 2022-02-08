@@ -2,37 +2,28 @@ package fxtris.Main.Stages;
 
 import fxtris.Main.Controls.Keyboard;
 import fxtris.Main.GameEvents.Events;
-import fxtris.Main.Minoes.Tetrominoes.T;
 import fxtris.Main.Others.GlobalValues;
-import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import static javafx.scene.input.KeyCode.ESCAPE;
-import static javafx.scene.input.KeyCode.F;
 
 public class SettingsStage {
 
-    private static VBox settingsRoot = new VBox();
-    public static VBox getSettingsRoot() {
-        return settingsRoot;
-    }
-
-    private static Scene settingsScene = new Scene(settingsRoot, 400, 600);
-    private static Stage settingsStage = new Stage();
+    private static final Stage settingsStage = new Stage();
     public static Stage getSettingsStage() {
         return settingsStage;
     }
-    public static Scene getSettingsScene() {
-        return settingsScene;
-    }
 
+    /**
+     * @param i Text object to format
+     * @return a formatted and ready to add Text object
+     */
     private static Text formatText(Text i){
         i.setFont(Font.font("Verdana", 20));
         return i;
@@ -40,15 +31,13 @@ public class SettingsStage {
 
     public static Slider musicVolume = new Slider();
     public static CheckBox connected = new CheckBox("Connected skin");
-    private static TextField sdf = new TextField();
-    private static TextField arr = new TextField();
-    private static TextField das = new TextField();
+    private static final TextField sdf = new TextField();
+    private static final TextField arr = new TextField();
+    private static final TextField das = new TextField();
 
-    //!Broken
-    public static void updateVolume(AudioClip music){
-        music.setVolume((music.getVolume() / 100) * musicVolume.getValue());
-    }
-
+    /**
+     * Loads the settings window and its tabs
+     */
     public static void loadSettings(){
 
         Tab instructionsTab = new Tab("Instructions");
@@ -138,8 +127,8 @@ public class SettingsStage {
             }
         });
 
-        settingsRoot = new VBox(settingsTabs);
-        settingsScene = new Scene(settingsRoot, 400, 600);
+        VBox settingsRoot = new VBox(settingsTabs);
+        Scene settingsScene = new Scene(settingsRoot, 400, 600);
         settingsStage.setScene(settingsScene);
         settingsStage.setResizable(false);
         try {
@@ -147,6 +136,9 @@ public class SettingsStage {
         } catch (Exception ignored){}
     }
 
+    /**
+     * Updates the values in the tex fields before showing the settings stage
+     */
     public static void openSettings() {
         if (!Keyboard.isLeft() && !Keyboard.isRight() && !Keyboard.isSoftDrop()) {
             das.setText(String.valueOf(GlobalValues.getDas()));

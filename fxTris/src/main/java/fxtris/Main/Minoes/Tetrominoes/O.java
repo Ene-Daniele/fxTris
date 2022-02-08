@@ -21,15 +21,16 @@ public class O extends Tetromino {
         return true;
     }
 
+    /**
+     * The O tetromino does not rotate
+     */
     @Override
     public void update() {
 
         minoA.setY(minoCentral.getY() + TILE);
         minoA.setX(minoCentral.getX() + TILE);
-
         minoB.setY(minoCentral.getY() + TILE);
         minoB.setX(minoCentral.getX());
-
         minoC.setY(minoCentral.getY());
         minoC.setX(minoCentral.getX() + TILE);
     }
